@@ -8,8 +8,10 @@ public enum Alignment{
 public class UnitStats : MonoBehaviour
 {
     public Alignment align;
-
     public int maxHP;
+    public int currentHP;
+    public bool isDead;
+    
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,5 +23,9 @@ public class UnitStats : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void TakeDamage(int amount){
+        currentHP -= amount;
     }
 }

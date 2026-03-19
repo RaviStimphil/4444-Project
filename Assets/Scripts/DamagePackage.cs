@@ -1,0 +1,24 @@
+using UnityEngine;
+
+public class DamagePackage 
+{
+    public GameObject source;
+    public GameObject target;
+    public int damageAmount;
+    public Vector2 knockbackDirection;
+    public float knockbackForce;
+
+    public DamagePackage(){
+
+    }
+    public DamagePackage(GameObject source, GameObject target, int amount){
+        this.source = source;
+        this.target = target;
+        this.damageAmount = amount;
+    }
+    public void KnockbackAdjust(Vector2 direct, float force){
+        knockbackDirection = direct;
+        knockbackForce = force;
+    }
+                  
+}
