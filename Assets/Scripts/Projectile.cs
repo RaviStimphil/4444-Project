@@ -35,4 +35,7 @@ public class Projectile : MonoBehaviour
         source.GetComponent<BattlerAgent>().RewardSet(-0.2f);
         Destroy(gameObject);
     }
+    public Alignment TellAlignment(){
+        return source.GetComponent<UnitStats>().align;
+    }
 }

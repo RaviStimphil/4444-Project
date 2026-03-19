@@ -5,6 +5,7 @@ public class DamagePackage
     public GameObject source;
     public GameObject target;
     public int damageAmount;
+    public float damagePercent;
     public Vector2 knockbackDirection;
     public float knockbackForce;
 

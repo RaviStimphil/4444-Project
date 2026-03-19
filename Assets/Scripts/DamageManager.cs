@@ -28,7 +28,7 @@ public class DamageManager : MonoBehaviour
     private void DamageUnit(DamagePackage pack){
         //DamagePopup.Create(pack, FloatingText);
         if(pack.target.GetComponent("UnitStats") as UnitStats){
-            pack.target.GetComponent<UnitStats>().TakeDamage(pack.damageAmount);
+            pack.target.GetComponent<UnitStats>().TakeDamage(pack);
         }
         
     }

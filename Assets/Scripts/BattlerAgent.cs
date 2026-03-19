@@ -1,4 +1,8 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -47,16 +51,48 @@ public class BattlerAgent : Agent
             {
                 distance = hit.distance / viewDistance;
 
-                if (hit.collider.TryGetComponent<BattlerAgent>(out _))
+                if (hit.collider.TryGetComponent<BattlerAgent>(out _) && collider.gameObject != this.gameObject)
                 {
-                    hitType = 1f; // enemy
+                    if(hit.collider.TryGetComponent<UnitStats>(out _)){
+                        if(hit.collider.GetComponent<UnitStats>().align != this.gameObject.GetComponent<UnitStats>().align){
+                            hitType = 1f; // enemy
+                        }
+                        else if(hit.collider.GetComponent<UnitStats>().align == this.gameObject.GetComponent<UnitStats>().align){
+                            hitType = -1f; //ally
+                        }
+                        
+                    }
+                    
                 }
                 else if (hit.collider.TryGetComponent<Wall>(out _))
                 {
-                    hitType = -1f; // wall
+                    hitType = 0f; // wall
                 }
                 else if (hit.collider.TryGetComponent<Projectile>(out _))
                 {
+                    Projectile projectile = hit.collider.GetComponent<Projectile>();
+                    if(projectile.source == null){
+                        Debug.Log(hit.collider.gameObject.name + " doesn't have a source as a projectile.");
+                        return;
+                    }
+                    else if(projectile.TellAlignment() != this.gameObject.GetComponent<UnitStats>().align){
+                        if(projectile.friendlyFire >= 0){
+                            hitType = 0.8; //Enemy Bullet Dangerous.
+                        }
+                        else{
+                            hitType = 0.6; //Enemy Bullet Harmless. 
+                        }
+                    }
+                    else{
+                        if(projectile.friendlyFire == 0){
+                            hitType = -0.8; //Ally Bullet Dangerous.
+                        }
+                        else{
+                            //Assumption is that ally bullets that affect only ally
+                            //will not be harmful for the agent. 
+                            hitType = -0.6; //Ally Bullet Harmless. 
+                        }
+                    }
                     hitType = -0.5f; // bullet (danger)
                 }
             }
