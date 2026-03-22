@@ -4,7 +4,7 @@ public class DamagePackage
 {
     public GameObject source;
     public GameObject target;
-    public int damageAmount;
+    public int amount;
     public float damagePercent;
     public Vector2 knockbackDirection;
     public float knockbackForce;
@@ -15,7 +15,7 @@ public class DamagePackage
     public DamagePackage(GameObject source, GameObject target, int amount){
         this.source = source;
         this.target = target;
-        this.damageAmount = amount;
+        this.amount = amount;
     }
     public void KnockbackAdjust(Vector2 direct, float force){
         knockbackDirection = direct;
