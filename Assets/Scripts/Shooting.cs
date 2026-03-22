@@ -14,17 +14,17 @@ public class Shooting : MonoBehaviour
     {
         source = this.gameObject;
     }
-    public void Shoot(Vector2 direction)
+    public void Shoot(Vector2 direction, Transform point)
     {
         if(canAttack){
-            GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+            GameObject proj = Instantiate(projectilePrefab, point.position, Quaternion.identity);
             proj.GetComponent<Projectile>().source = source;
             Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
             rb.linearVelocity = direction.normalized * projectileSpeed;
             //source.GetComponent<BattlerAgent>().RewardSet(+0.1f);  
             StartCoroutine(AttackWait());  
         }else{
-            source.GetComponent<BattlerAgent>().RewardSet(-0.1f);
+            //source.GetComponent<BattlerAgent>().RewardSet(-0.1f);
         }
        
     }

@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1774149421",
+        "python_version": "3.10.12 | packaged by Anaconda, Inc. | (main, Jul  5 2023, 19:01:18) [MSC v.1916 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\Ravi\\miniconda3\\envs\\mlagents\\Scripts\\mlagents-learn config/ppo/MoveToGoal.yaml --run-id=test8 --force",
+        "mlagents_version": "1.1.0",
+        "mlagents_envs_version": "1.1.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.10.0+cpu",
+        "numpy_version": "1.23.5",
+        "end_time_seconds": "1774149450"
+    },
+    "total": 28.7367690000101,
+    "count": 1,
+    "self": 0.05097800001385622,
+    "children": {
+        "run_training.setup": {
+            "total": 0.35947999998461455,
+            "count": 1,
+            "self": 0.35947999998461455
+        },
+        "TrainerController.start_learning": {
+            "total": 28.32631100001163,
+            "count": 1,
+            "self": 0.001343400013865903,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 28.32492660000571,
+                    "count": 1,
+                    "self": 28.32492660000571
+                },
+                "trainer_threads": {
+                    "total": 4.699977580457926e-06,
+                    "count": 1,
+                    "self": 4.699977580457926e-06
+                },
+                "TrainerController._save_models": {
+                    "total": 3.630001447163522e-05,
+                    "count": 1,
+                    "self": 3.630001447163522e-05
+                }
+            }
+        }
+    }
+}

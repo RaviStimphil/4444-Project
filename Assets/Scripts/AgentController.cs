@@ -9,4 +9,5 @@ public class AgentController : MonoBehaviour
 
         transform.localPosition += (Vector3)direction * moveSpeed * Time.deltaTime;
     }
+    
 }

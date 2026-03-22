@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public enum Alignment{
+    Zearo,
     Firast,
     Seacond,
     Thiard
@@ -28,7 +29,7 @@ public class UnitStats : MonoBehaviour
     public void TakeDamage(DamagePackage pack){
         int storeHP = currentHP;
         currentHP -= pack.amount;
-        DamagePackage damageTaken = new DamagePackage(pack.source, pack.target, packAmount + currentHP);
+        DamagePackage damageTaken = new DamagePackage(pack.source, pack.target, pack.amount + currentHP);
         damageTaken.damagePercent = (float) (currentHP - storeHP)/maxHP;
         SharedEvents.AnnounceDamage(damageTaken);
         CheckDeath();
