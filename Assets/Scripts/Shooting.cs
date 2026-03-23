@@ -14,10 +14,10 @@ public class Shooting : MonoBehaviour
     {
         source = this.gameObject;
     }
-    public void Shoot(Vector2 direction, Transform point)
+    public void Shoot(Vector2 direction/*, Transform point*/)
     {
         if(canAttack){
-            GameObject proj = Instantiate(projectilePrefab, point.position, Quaternion.identity);
+            GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
             proj.GetComponent<Projectile>().source = source;
             Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
             rb.linearVelocity = direction.normalized * projectileSpeed;

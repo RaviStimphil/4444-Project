@@ -32,18 +32,38 @@ public class BattlerAgent : Agent
 
     void OnEnable(){
         SharedEvents.damageTaken += RewardForDamage;
+        SharedEvents.unitDeath += RewardForDeath;
     }
     void OnDisable(){
         SharedEvents.damageTaken -= RewardForDamage;
+        SharedEvents.unitDeath -= RewardForDeath;
     }
     public override void Initialize()
     {
         controller = GetComponent<AgentController>();
         shooter = GetComponent<Shooting>();
     }
-    
     public override void OnEpisodeBegin(){
+        Debug.Log("Episode Started");
         transform.localPosition = respawnPoint;
+        this.gameObject.GetComponent<UnitStats>().ResetStats();
+    }
+    void FixedUpdate()
+{
+    RequestDecision();
+}
+    public void RewardForDeath(GameObject unit){
+        Alignment deadAlign = unit.gameObject.GetComponent<UnitStats>().align;
+        Alignment agentAlign = this.gameObject.GetComponent<UnitStats>().align;
+        if(unit == this.gameObject){
+            AddReward(-2f);
+        }
+        else if(deadAlign == agentAlign){
+            AddReward(-1f);
+        }
+        else{
+            AddReward(1f);
+        }
     }
     public void RewardForDamage(DamagePackage pack){
         //In case I want to make deployables... I really shouldn't.
@@ -88,9 +108,10 @@ public class BattlerAgent : Agent
         }
     }
     public override void CollectObservations(VectorSensor sensor){
-         sensor.AddObservation(transform.localPosition);
-         //sensor.AddObservation(targetPos.localPosition);
-
+        sensor.AddObservation(transform.localPosition);
+        sensor.AddObservation(targetPos.localPosition);
+        /*
+        float hp = 1f;
         for (int i = 0; i < rayCount; i++)
         {
             // Spread rays across an angle
@@ -107,7 +128,7 @@ public class BattlerAgent : Agent
             {
                 distance = hit.distance / viewDistance;
 
-                if (hit.collider.TryGetComponent<BattlerAgent>(out _) && GetComponent<Collider>().gameObject != this.gameObject)
+                if (hit.collider.TryGetComponent<BattlerAgent>(out _) && hit.collider.gameObject != this.gameObject)
                 {
                     if(hit.collider.TryGetComponent<UnitStats>(out _)){
                         if(hit.collider.GetComponent<UnitStats>().align != this.gameObject.GetComponent<UnitStats>().align){
@@ -129,7 +150,7 @@ public class BattlerAgent : Agent
                     Projectile projectile = hit.collider.GetComponent<Projectile>();
                     if(projectile.source == null){
                         Debug.Log(hit.collider.gameObject.name + " doesn't have a source as a projectile.");
-                        return;
+                        
                     }
                     else if(projectile.TellAlignment() != this.gameObject.GetComponent<UnitStats>().align){
                         if(projectile.friendlyFire >= 0){
@@ -152,35 +173,37 @@ public class BattlerAgent : Agent
                     
                 }
                 if(hit.collider.TryGetComponent<UnitStats>(out _)){
-                    sensor.AddObservation((float) hit.collider.GetComponent<UnitStats>().currentHP/hit.collider.GetComponent<UnitStats>().maxHP);
+                    hp = ((float) hit.collider.GetComponent<UnitStats>().currentHP/hit.collider.GetComponent<UnitStats>().maxHP);
                     
                 }
             }
 
             // Add to ML observations
+            sensor.AddObservation(hp);
             sensor.AddObservation(hitType);
             sensor.AddObservation(distance);
             
-
+            */
             // Debug visualization
-            Debug.DrawRay(transform.position, dir * viewDistance, Color.red);
-        }
+            Debug.DrawRay(transform.position, Vector2.up * viewDistance, Color.red);
+        //}
     }
     public override void OnActionReceived(ActionBuffers actions){
         float moveX = actions.ContinuousActions[0];
         float moveY = actions.ContinuousActions[1];
-        float rotateZ = actions.ContinuousActions[2];
+        //float rotateZ = actions.ContinuousActions[2];
         int shoot = actions.DiscreteActions[0];
 
+        Debug.Log(actions.ContinuousActions[0]);
         
         controller.Move(new Vector2(moveX, moveY));
-        Rotate(rotateZ);
+        //Rotate(rotateZ);
         Vector3 direction = transform.up; // forward in 2D
         firePoint.position = transform.position + direction * firePointDistance;
         if(shoot == 1)
         {
             Vector2 dir = (targetPos.position - transform.position).normalized;
-            shooter.Shoot(dir, firePoint);
+            shooter.Shoot(dir/*, firePoint*/);
         }
     }
     public void Rotate(float amount){

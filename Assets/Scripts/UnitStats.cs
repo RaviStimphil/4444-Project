@@ -17,7 +17,7 @@ public class UnitStats : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //poison
+        ResetStats();
     }
 
     // Update is called once per frame
@@ -39,5 +39,13 @@ public class UnitStats : MonoBehaviour
             isDead = true;
 
         }
+    }
+
+    public void ResetStats(){
+        ResetHP();
+        isDead = false; 
+    }
+    public void ResetHP(){
+        currentHP = maxHP;
     }
 }
