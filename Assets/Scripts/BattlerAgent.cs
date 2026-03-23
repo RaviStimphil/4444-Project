@@ -51,7 +51,7 @@ public class BattlerAgent : Agent
             {
                 distance = hit.distance / viewDistance;
 
-                if (hit.collider.TryGetComponent<BattlerAgent>(out _) && GetComponent<Collider>().gameObject != this.gameObject)
+                if (hit.collider.TryGetComponent<BattlerAgent>(out _) && collider.gameObject != this.gameObject)
                 {
                     if(hit.collider.TryGetComponent<UnitStats>(out _)){
                         if(hit.collider.GetComponent<UnitStats>().align != this.gameObject.GetComponent<UnitStats>().align){
@@ -77,20 +77,20 @@ public class BattlerAgent : Agent
                     }
                     else if(projectile.TellAlignment() != this.gameObject.GetComponent<UnitStats>().align){
                         if(projectile.friendlyFire >= 0){
-                            hitType = 0.8f; //Enemy Bullet Dangerous.
+                            hitType = 0.8; //Enemy Bullet Dangerous.
                         }
                         else{
-                            hitType = 0.6f; //Enemy Bullet Harmless. 
+                            hitType = 0.6; //Enemy Bullet Harmless. 
                         }
                     }
                     else{
                         if(projectile.friendlyFire == 0){
-                            hitType = -0.8f; //Ally Bullet Dangerous.
+                            hitType = -0.8; //Ally Bullet Dangerous.
                         }
                         else{
                             //Assumption is that ally bullets that affect only ally
                             //will not be harmful for the agent. 
-                            hitType = -0.6f; //Ally Bullet Harmless. 
+                            hitType = -0.6; //Ally Bullet Harmless. 
                         }
                     }
                     hitType = -0.5f; // bullet (danger)
