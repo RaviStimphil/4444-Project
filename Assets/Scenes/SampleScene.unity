@@ -225,6 +225,10 @@ MonoBehaviour:
   moveSpeed: 5
   shooter: {fileID: 0}
   respawnPoint: {x: 10, y: 6, z: 0}
+  rotationSpeed: 180
+  currentAngle: 0
+  firePoint: {fileID: 0}
+  firePointDistance: 0.5
 --- !u!114 &67502064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +245,7 @@ MonoBehaviour:
     VectorObservationSize: 6
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 2
+      m_NumContinuousActions: 3
       BranchSizes: 02000000
     VectorActionSize: 
     VectorActionDescriptions: []
@@ -1480,7 +1484,7 @@ MonoBehaviour:
     VectorObservationSize: 6
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 2
+      m_NumContinuousActions: 3
       BranchSizes: 02000000
     VectorActionSize: 
     VectorActionDescriptions: []
@@ -1674,6 +1678,10 @@ MonoBehaviour:
   moveSpeed: 5
   shooter: {fileID: 0}
   respawnPoint: {x: 0, y: 0, z: 0}
+  rotationSpeed: 180
+  currentAngle: 0
+  firePoint: {fileID: 0}
+  firePointDistance: 0.5
 --- !u!114 &2107409730
 MonoBehaviour:
   m_ObjectHideFlags: 0
