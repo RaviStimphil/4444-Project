@@ -21,6 +21,10 @@ public class BattlerAgent : Agent
     public Transform firePoint;
     public float firePointDistance = 0.5f;
 
+    public int rayCount = 5;
+    public float viewAngle = 90f;
+    public float viewDistance = 15f;
+
     public override void Initialize()
     {
         controller = GetComponent<AgentController>();
@@ -33,7 +37,27 @@ public class BattlerAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor){
         sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(targetPos.localPosition);
+        //sensor.AddObservation(targetPos.localPosition);
+        sensor.AddObservation(transform.up);
+        float hitType = 0f;  
+        float distance = 1f; 
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, viewDistance);
+        if (hit.collider != null)
+        {
+            distance = hit.distance / viewDistance;
+
+            if (hit.collider.TryGetComponent<BattlerAgent>(out _))
+            {
+                hitType = 1f; 
+            }
+            else if (hit.collider.TryGetComponent<Wall>(out _))
+            {
+                hitType = -1f;
+            }
+        }
+        sensor.AddObservation(hitType);
+        sensor.AddObservation(distance);
+        Debug.DrawRay(transform.position, transform.up * viewDistance, Color.red);
     }
     public override void OnActionReceived(ActionBuffers actions){
         float moveX = actions.ContinuousActions[0];
@@ -63,6 +87,9 @@ public class BattlerAgent : Agent
     }
     public void RewardSet(float amount){
         SetReward(amount);
+    }
+    public void RewardAdd(float amount){
+        AddReward(amount);
     }
     private void OnTriggerEnter2D(Collider2D other){
         if(other.TryGetComponent<Goal>(out Goal goal)){

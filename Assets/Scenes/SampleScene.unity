@@ -229,6 +229,9 @@ MonoBehaviour:
   currentAngle: 0
   firePoint: {fileID: 0}
   firePointDistance: 0.5
+  rayCount: 5
+  viewAngle: 90
+  viewDistance: 10
 --- !u!114 &67502064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,7 +245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 6
+    VectorObservationSize: 8
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 3
@@ -1481,7 +1484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 6
+    VectorObservationSize: 8
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 3
@@ -1635,14 +1638,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2107409720}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.544017, w: 0.8390742}
   m_LocalPosition: {x: 0, y: 0, z: 0.14564735}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1539702817}
   m_Father: {fileID: 1111277740}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -65.915}
 --- !u!114 &2107409728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1682,6 +1685,9 @@ MonoBehaviour:
   currentAngle: 0
   firePoint: {fileID: 0}
   firePointDistance: 0.5
+  rayCount: 5
+  viewAngle: 90
+  viewDistance: 10
 --- !u!114 &2107409730
 MonoBehaviour:
   m_ObjectHideFlags: 0
