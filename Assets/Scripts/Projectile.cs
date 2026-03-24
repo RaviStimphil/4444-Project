@@ -18,12 +18,12 @@ public class Projectile : MonoBehaviour
         {
             DamagePackage damage = new DamagePackage(source, other.gameObject, damageAmount);
             SharedEvents.SendDamage(damage);
-            agent.SetReward(-1.0f);
-            source.GetComponent<BattlerAgent>().RewardSet(+1f);
+            agent.AddReward(-0.2f);
+            source.GetComponent<BattlerAgent>().RewardAdd(+0.2f);
             Destroy(gameObject);
         }
         if(other.TryGetComponent<Wall>(out Wall wall)){
-            source.GetComponent<BattlerAgent>().RewardSet(-0.2f);
+            source.GetComponent<BattlerAgent>().RewardAdd(-0.02f);
             Destroy(gameObject);
         }
     }
@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
     }
     private IEnumerator DeathTime(){
         yield return new WaitForSeconds(3f);
-        source.GetComponent<BattlerAgent>().RewardSet(-0.2f);
+        source.GetComponent<BattlerAgent>().RewardSet(-0.04f);
         Destroy(gameObject);
     }
     public Alignment TellAlignment(){

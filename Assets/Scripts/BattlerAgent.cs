@@ -25,6 +25,8 @@ public class BattlerAgent : Agent
     public float viewAngle = 90f;
     public float viewDistance = 15f;
 
+    public GameObject floatingText;
+    
     public override void Initialize()
     {
         controller = GetComponent<AgentController>();
@@ -48,6 +50,7 @@ public class BattlerAgent : Agent
 
             if (hit.collider.TryGetComponent<BattlerAgent>(out _))
             {
+                AddReward(0.01f);
                 hitType = 1f; 
             }
             else if (hit.collider.TryGetComponent<Wall>(out _))
@@ -87,6 +90,7 @@ public class BattlerAgent : Agent
     }
     public void RewardSet(float amount){
         SetReward(amount);
+        DamagePopup.ShowReward(amount, this.gameObject, floatingText);
     }
     public void RewardAdd(float amount){
         AddReward(amount);
