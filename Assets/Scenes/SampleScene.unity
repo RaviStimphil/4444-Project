@@ -136,6 +136,8 @@ GameObject:
   - component: {fileID: 67502062}
   - component: {fileID: 67502061}
   - component: {fileID: 67502060}
+  - component: {fileID: 67502068}
+  - component: {fileID: 67502069}
   m_Layer: 0
   m_Name: Agent (1)
   m_TagString: Untagged
@@ -225,6 +227,7 @@ MonoBehaviour:
   moveSpeed: 5
   shooter: {fileID: 0}
   respawnPoint: {x: 10, y: 6, z: 0}
+  pendingRewards: 0
   rotationSpeed: 180
   currentAngle: 0
   firePoint: {fileID: 0}
@@ -392,6 +395,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &67502068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67502058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5779d42082adce14b82fc775d8b199f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+--- !u!114 &67502069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67502058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc9aa3df398a9fe469f1e08f216d7674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  align: 0
+  maxHP: 80
+  currentHP: 0
+  isDead: 0
 --- !u!1 &157066397
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +571,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f844042117a0c846bf07824b1fad148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &423750164
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 423750166}
+  - component: {fileID: 423750165}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &423750165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423750164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e4cf50a5692a242b72271812f78d62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &423750166
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423750164}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.8428187, y: -0.91237813, z: -0.08872389}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1645,6 +1721,8 @@ GameObject:
   - component: {fileID: 2107409728}
   - component: {fileID: 2107409730}
   - component: {fileID: 2107409731}
+  - component: {fileID: 2107409732}
+  - component: {fileID: 2107409733}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Untagged
@@ -1862,6 +1940,7 @@ MonoBehaviour:
   moveSpeed: 5
   shooter: {fileID: 0}
   respawnPoint: {x: 0, y: 0, z: 0}
+  pendingRewards: 0
   rotationSpeed: 180
   currentAngle: 0
   firePoint: {fileID: 0}
@@ -1901,6 +1980,35 @@ MonoBehaviour:
   projectileSpeed: 6
   attackCooldown: 1
   canAttack: 1
+--- !u!114 &2107409732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107409720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5779d42082adce14b82fc775d8b199f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+--- !u!114 &2107409733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107409720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc9aa3df398a9fe469f1e08f216d7674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  align: 0
+  maxHP: 80
+  currentHP: 0
+  isDead: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1910,3 +2018,4 @@ SceneRoots:
   - {fileID: 1111277740}
   - {fileID: 1372586025}
   - {fileID: 1867400958}
+  - {fileID: 423750166}

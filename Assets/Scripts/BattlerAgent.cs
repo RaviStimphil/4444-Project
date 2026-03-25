@@ -14,6 +14,7 @@ public class BattlerAgent : Agent
     private AgentController controller;
     public Shooting shooter;
     public Vector3 respawnPoint;
+    public float pendingRewards;
 
     public float rotationSpeed = 180f; // degrees per second
     public float currentAngle = 0f;
@@ -26,7 +27,9 @@ public class BattlerAgent : Agent
     public float viewDistance = 15f;
 
     public GameObject floatingText;
+        
     
+
     public override void Initialize()
     {
         controller = GetComponent<AgentController>();
@@ -35,6 +38,7 @@ public class BattlerAgent : Agent
     
     public override void OnEpisodeBegin(){
         transform.localPosition = respawnPoint;
+        this.gameObject.GetComponent<UnitStats>().ResetStats();
     }
 
     public override void CollectObservations(VectorSensor sensor){
@@ -67,7 +71,8 @@ public class BattlerAgent : Agent
         float moveY = actions.ContinuousActions[1];
         float rotateZ = actions.ContinuousActions[2];
         int shoot = actions.DiscreteActions[0];
-
+        AddReward(pendingRewards);
+        pendingRewards = 0;
         
         if(shoot == 1)
         {
@@ -88,12 +93,21 @@ public class BattlerAgent : Agent
         //continuousActions[0] = Input.GetAxisRaw("Horizontal");
         //continuousActions[1] = Input.GetAxisRaw("Vertical");
     }
+    public void RewardForDeath(GameObject unit){
+
+    }
+    public void RewardForDamage(DamagePackage pack){
+
+    }
     public void RewardSet(float amount){
         SetReward(amount);
         DamagePopup.ShowReward(amount, this.gameObject, floatingText);
     }
     public void RewardAdd(float amount){
         AddReward(amount);
+    }
+    public void PendingRewardAdd(float amount){
+        pendingRewards += amount; 
     }
     private void OnTriggerEnter2D(Collider2D other){
         if(other.TryGetComponent<Goal>(out Goal goal)){
