@@ -18,8 +18,8 @@ public class Projectile : MonoBehaviour
         {
             DamagePackage damage = new DamagePackage(source, other.gameObject, damageAmount);
             SharedEvents.SendDamage(damage);
-            agent.AddReward(-0.2f);
-            source.GetComponent<BattlerAgent>().RewardAdd(+0.2f);
+            agent.SetReward(-1.0f);
+            source.GetComponent<BattlerAgent>().RewardSet(+1f);
             Destroy(gameObject);
         }
         if(other.TryGetComponent<Wall>(out Wall wall)){

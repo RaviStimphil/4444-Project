@@ -30,6 +30,12 @@ public class BattlerAgent : Agent
         
     
 
+    public int rayCount = 5;
+    public float viewAngle = 90f;
+    public float viewDistance = 10f;
+    public LayerMask rayMask;
+
+
     public override void Initialize()
     {
         controller = GetComponent<AgentController>();
@@ -42,29 +48,78 @@ public class BattlerAgent : Agent
     }
 
     public override void CollectObservations(VectorSensor sensor){
-        sensor.AddObservation(transform.localPosition);
-        //sensor.AddObservation(targetPos.localPosition);
-        sensor.AddObservation(transform.up);
-        float hitType = 0f;  
-        float distance = 1f; 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, viewDistance);
-        if (hit.collider != null)
-        {
-            distance = hit.distance / viewDistance;
+         sensor.AddObservation(transform.localPosition);
+         sensor.AddObservation(targetPos.localPosition);
 
-            if (hit.collider.TryGetComponent<BattlerAgent>(out _))
+        for (int i = 0; i < rayCount; i++)
+        {
+            // Spread rays across an angle
+            float angle = -viewAngle / 2f + (viewAngle / (rayCount - 1)) * i;
+
+            Vector2 dir = Quaternion.Euler(0, 0, angle) * transform.right;
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, viewDistance, rayMask);
+
+            float hitType = 0f;   // what we hit
+            float distance = 1f;  // normalized distance
+
+            if (hit.collider != null)
             {
-                AddReward(0.01f);
-                hitType = 1f; 
+                distance = hit.distance / viewDistance;
+
+                if (hit.collider.TryGetComponent<BattlerAgent>(out _) && collider.gameObject != this.gameObject)
+                {
+                    if(hit.collider.TryGetComponent<UnitStats>(out _)){
+                        if(hit.collider.GetComponent<UnitStats>().align != this.gameObject.GetComponent<UnitStats>().align){
+                            hitType = 1f; // enemy
+                        }
+                        else if(hit.collider.GetComponent<UnitStats>().align == this.gameObject.GetComponent<UnitStats>().align){
+                            hitType = -1f; //ally
+                        }
+                        
+                    }
+                    
+                }
+                else if (hit.collider.TryGetComponent<Wall>(out _))
+                {
+                    hitType = 0f; // wall
+                }
+                else if (hit.collider.TryGetComponent<Projectile>(out _))
+                {
+                    Projectile projectile = hit.collider.GetComponent<Projectile>();
+                    if(projectile.source == null){
+                        Debug.Log(hit.collider.gameObject.name + " doesn't have a source as a projectile.");
+                        return;
+                    }
+                    else if(projectile.TellAlignment() != this.gameObject.GetComponent<UnitStats>().align){
+                        if(projectile.friendlyFire >= 0){
+                            hitType = 0.8; //Enemy Bullet Dangerous.
+                        }
+                        else{
+                            hitType = 0.6; //Enemy Bullet Harmless. 
+                        }
+                    }
+                    else{
+                        if(projectile.friendlyFire == 0){
+                            hitType = -0.8; //Ally Bullet Dangerous.
+                        }
+                        else{
+                            //Assumption is that ally bullets that affect only ally
+                            //will not be harmful for the agent. 
+                            hitType = -0.6; //Ally Bullet Harmless. 
+                        }
+                    }
+                    hitType = -0.5f; // bullet (danger)
+                }
             }
-            else if (hit.collider.TryGetComponent<Wall>(out _))
-            {
-                hitType = -1f;
-            }
+
+            // Add to ML observations
+            sensor.AddObservation(hitType);
+            sensor.AddObservation(distance);
+
+            // Debug visualization
+            Debug.DrawRay(transform.position, dir * viewDistance, Color.red);
         }
-        sensor.AddObservation(hitType);
-        sensor.AddObservation(distance);
-        Debug.DrawRay(transform.position, transform.up * viewDistance, Color.red);
     }
     public override void OnActionReceived(ActionBuffers actions){
         float moveX = actions.ContinuousActions[0];
