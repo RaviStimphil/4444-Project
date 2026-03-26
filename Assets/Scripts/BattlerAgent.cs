@@ -72,6 +72,10 @@ public class BattlerAgent : Agent
         float rotateZ = actions.ContinuousActions[2];
         int shoot = actions.DiscreteActions[0];
         AddReward(pendingRewards);
+        if(pendingRewards != 0){
+            DamagePopup.ShowReward(pendingRewards, this.gameObject, floatingText);
+        }
+        
         pendingRewards = 0;
         
         if(shoot == 1)
@@ -105,6 +109,7 @@ public class BattlerAgent : Agent
     }
     public void RewardAdd(float amount){
         AddReward(amount);
+        DamagePopup.ShowReward(amount, this.gameObject, floatingText);
     }
     public void PendingRewardAdd(float amount){
         pendingRewards += amount; 
