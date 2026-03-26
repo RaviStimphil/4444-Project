@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         }
         if(other.TryGetComponent<Wall>(out Wall wall)){
-            source.GetComponent<BattlerAgent>().RewardSet(-0.2f);
+            source.GetComponent<BattlerAgent>().RewardAdd(-0.02f);
             Destroy(gameObject);
         }
     }
@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
     }
     private IEnumerator DeathTime(){
         yield return new WaitForSeconds(3f);
-        source.GetComponent<BattlerAgent>().RewardSet(-0.2f);
+        source.GetComponent<BattlerAgent>().RewardSet(-0.04f);
         Destroy(gameObject);
     }
     public Alignment TellAlignment(){

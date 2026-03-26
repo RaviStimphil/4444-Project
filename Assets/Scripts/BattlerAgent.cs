@@ -14,6 +14,21 @@ public class BattlerAgent : Agent
     private AgentController controller;
     public Shooting shooter;
     public Vector3 respawnPoint;
+    public float pendingRewards;
+
+    public float rotationSpeed = 180f; // degrees per second
+    public float currentAngle = 0f;
+
+    public Transform firePoint;
+    public float firePointDistance = 0.5f;
+
+    public int rayCount = 5;
+    public float viewAngle = 90f;
+    public float viewDistance = 15f;
+
+    public GameObject floatingText;
+        
+    
 
     public int rayCount = 5;
     public float viewAngle = 90f;
@@ -29,6 +44,7 @@ public class BattlerAgent : Agent
     
     public override void OnEpisodeBegin(){
         transform.localPosition = respawnPoint;
+        this.gameObject.GetComponent<UnitStats>().ResetStats();
     }
 
     public override void CollectObservations(VectorSensor sensor){
@@ -108,23 +124,50 @@ public class BattlerAgent : Agent
     public override void OnActionReceived(ActionBuffers actions){
         float moveX = actions.ContinuousActions[0];
         float moveY = actions.ContinuousActions[1];
-
+        float rotateZ = actions.ContinuousActions[2];
         int shoot = actions.DiscreteActions[0];
-
+        AddReward(pendingRewards);
+        if(pendingRewards != 0){
+            DamagePopup.ShowReward(pendingRewards, this.gameObject, floatingText);
+        }
+        
+        pendingRewards = 0;
+        
         if(shoot == 1)
         {
-            Vector2 dir = (targetPos.position - transform.position).normalized;
+            Vector2 dir = transform.up;
             shooter.Shoot(dir);
         }
+        Rotate(rotateZ);
         controller.Move(new Vector2(moveX, moveY));   
+    }
+    public void Rotate(float amount){
+        currentAngle += amount * rotationSpeed * Time.deltaTime;
+
+        // Apply rotation
+        transform.rotation = Quaternion.Euler(0, 0, currentAngle);
     }
     public override void Heuristic(in ActionBuffers actionsOut){
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
         //continuousActions[0] = Input.GetAxisRaw("Horizontal");
         //continuousActions[1] = Input.GetAxisRaw("Vertical");
     }
+    public void RewardForDeath(GameObject unit){
+
+    }
+    public void RewardForDamage(DamagePackage pack){
+
+    }
     public void RewardSet(float amount){
         SetReward(amount);
+        DamagePopup.ShowReward(amount, this.gameObject, floatingText);
+    }
+    public void RewardAdd(float amount){
+        AddReward(amount);
+        DamagePopup.ShowReward(amount, this.gameObject, floatingText);
+    }
+    public void PendingRewardAdd(float amount){
+        pendingRewards += amount; 
     }
     private void OnTriggerEnter2D(Collider2D other){
         if(other.TryGetComponent<Goal>(out Goal goal)){
