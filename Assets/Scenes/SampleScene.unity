@@ -227,6 +227,12 @@ MonoBehaviour:
   moveSpeed: 5
   shooter: {fileID: 0}
   respawnPoint: {x: 10, y: 6, z: 0}
+  pendingRewards: 0
+  rotationSpeed: 180
+  currentAngle: 0
+  firePoint: {fileID: 0}
+  firePointDistance: 0.5
+  floatingText: {fileID: 7395249053861164925, guid: 1c52a74bd9f0ed049bc33af29343fb75, type: 3}
   rayCount: 5
   viewAngle: 90
   viewDistance: 10
@@ -246,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 8
+    VectorObservationSize: 16
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 3
@@ -1764,7 +1770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 8
+    VectorObservationSize: 16
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 3
@@ -1961,6 +1967,12 @@ MonoBehaviour:
   moveSpeed: 5
   shooter: {fileID: 0}
   respawnPoint: {x: 0, y: 0, z: 0}
+  pendingRewards: 0
+  rotationSpeed: 180
+  currentAngle: 0
+  firePoint: {fileID: 0}
+  firePointDistance: 0.5
+  floatingText: {fileID: 7395249053861164925, guid: 1c52a74bd9f0ed049bc33af29343fb75, type: 3}
   rayCount: 5
   viewAngle: 90
   viewDistance: 10
@@ -2035,3 +2047,5 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1111277740}
   - {fileID: 1583195846}
+  - {fileID: 423750166}
+  - {fileID: 1372586025}

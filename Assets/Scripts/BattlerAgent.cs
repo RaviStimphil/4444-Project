@@ -22,9 +22,6 @@ public class BattlerAgent : Agent
     public Transform firePoint;
     public float firePointDistance = 0.5f;
 
-    public int rayCount = 5;
-    public float viewAngle = 90f;
-    public float viewDistance = 15f;
 
     public GameObject floatingText;
         
@@ -57,8 +54,8 @@ public class BattlerAgent : Agent
             float angle = -viewAngle / 2f + (viewAngle / (rayCount - 1)) * i;
 
             Vector2 dir = Quaternion.Euler(0, 0, angle) * transform.right;
-
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, viewDistance, rayMask);
+            Vector3 offset = new Vector3(0, 0.75f, 0);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + offset, dir, viewDistance);
 
             float hitType = 0f;   // what we hit
             float distance = 1f;  // normalized distance
@@ -67,7 +64,7 @@ public class BattlerAgent : Agent
             {
                 distance = hit.distance / viewDistance;
 
-                if (hit.collider.TryGetComponent<BattlerAgent>(out _) && collider.gameObject != this.gameObject)
+                if (hit.collider.TryGetComponent<BattlerAgent>(out _) && hit.collider.gameObject != this.gameObject)
                 {
                     if(hit.collider.TryGetComponent<UnitStats>(out _)){
                         if(hit.collider.GetComponent<UnitStats>().align != this.gameObject.GetComponent<UnitStats>().align){
@@ -93,20 +90,20 @@ public class BattlerAgent : Agent
                     }
                     else if(projectile.TellAlignment() != this.gameObject.GetComponent<UnitStats>().align){
                         if(projectile.friendlyFire >= 0){
-                            hitType = 0.8; //Enemy Bullet Dangerous.
+                            hitType = 0.8f; //Enemy Bullet Dangerous.
                         }
                         else{
-                            hitType = 0.6; //Enemy Bullet Harmless. 
+                            hitType = 0.6f; //Enemy Bullet Harmless. 
                         }
                     }
                     else{
                         if(projectile.friendlyFire == 0){
-                            hitType = -0.8; //Ally Bullet Dangerous.
+                            hitType = -0.8f; //Ally Bullet Dangerous.
                         }
                         else{
                             //Assumption is that ally bullets that affect only ally
                             //will not be harmful for the agent. 
-                            hitType = -0.6; //Ally Bullet Harmless. 
+                            hitType = -0.6f; //Ally Bullet Harmless. 
                         }
                     }
                     hitType = -0.5f; // bullet (danger)
