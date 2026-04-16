@@ -29,7 +29,7 @@ public class BattlerAgent : Agent
 
     public int rayCount = 5;
     public float viewAngle = 90f;
-    public float viewDistance = 10f;
+    public float viewDistance = 15f;
     public LayerMask rayMask;
 
 
@@ -42,6 +42,7 @@ public class BattlerAgent : Agent
     public override void OnEpisodeBegin(){
         transform.localPosition = respawnPoint;
         this.gameObject.GetComponent<UnitStats>().ResetStats();
+        currentAngle = 0f;
     }
 
     public override void CollectObservations(VectorSensor sensor){
@@ -139,7 +140,7 @@ public class BattlerAgent : Agent
         controller.Move(new Vector2(moveX, moveY));   
     }
     public void Rotate(float amount){
-        currentAngle += amount * rotationSpeed * Time.deltaTime;
+        currentAngle += (amount * 2f - 1f) * rotationSpeed * Time.deltaTime;
 
         // Apply rotation
         transform.rotation = Quaternion.Euler(0, 0, currentAngle);

@@ -28,9 +28,9 @@ public class DamagePopup : MonoBehaviour
 
     public void Setup(float amount){
         if(amount < 0){
-            textMesh.SetText("+" + (amount).ToString());
-        }else{
             textMesh.SetText(amount.ToString());
+        }else{
+            textMesh.SetText("+" + amount.ToString());
         }
         
     }
