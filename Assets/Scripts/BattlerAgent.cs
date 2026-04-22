@@ -22,98 +22,152 @@ public class BattlerAgent : Agent
     public Transform firePoint;
     public float firePointDistance = 0.5f;
 
+    public List<AttackBehavior> basicOptions;
+    public List<AttackBehavior> specialOptions;
+
+    public AttackBehavior basicAttack;
+    public AttackBehavior specialAttack; 
 
     public GameObject floatingText;
         
-    
+    public bool canAttack = true;
+    public bool canMove = true;
 
     public int rayCount = 5;
     public float viewAngle = 90f;
     public float viewDistance = 15f;
     public LayerMask rayMask;
 
+    public float maxRewardRange;
+    public float minRewardRange;
+
 
     public override void Initialize()
     {
         controller = GetComponent<AgentController>();
         shooter = GetComponent<Shooting>();
+        Vector3 offset = new Vector3(0, 0.75f, 0);
+        firePoint.position = firePoint.position + offset;
+        
     }
-    
+    public void UpdateAbility()
+    {
+        // Pick random basic attack
+        int basicIndex = UnityEngine.Random.Range(0, basicOptions.Count);
+        AttackBehavior basicChoice = basicOptions[basicIndex];
+
+        basicAttack = Instantiate(basicChoice);
+        basicAttack.Initialize(gameObject);
+
+        minRewardRange = basicAttack.minRewardRange;
+        maxRewardRange = basicAttack.maxRewardRange;
+        // Pick random special attack
+        int specialIndex = UnityEngine.Random.Range(0, specialOptions.Count);
+        AttackBehavior specialChoice = specialOptions[specialIndex];
+
+        specialAttack = Instantiate(specialChoice);
+        specialAttack.Initialize(gameObject);
+
+        minRewardRange = Math.Min(basicAttack.minRewardRange, specialAttack.minRewardRange);
+        maxRewardRange = Math.Max(basicAttack.maxRewardRange, specialAttack.maxRewardRange);
+    }
+    void FixedUpdate()
+    {
+        basicAttack.Tick(Time.deltaTime);
+        specialAttack.Tick(Time.deltaTime);
+    }
+
     public override void OnEpisodeBegin(){
         transform.localPosition = respawnPoint;
         this.gameObject.GetComponent<UnitStats>().ResetStats();
         currentAngle = 0f;
+        UpdateAbility();
     }
 
     public override void CollectObservations(VectorSensor sensor){
-         sensor.AddObservation(transform.localPosition);
-         sensor.AddObservation(targetPos.localPosition);
-
+        sensor.AddObservation(transform.localPosition);
+        sensor.AddObservation(targetPos.localPosition);
+        if(!canAttack){
+            sensor.AddObservation(0f);
+        }else{
+            sensor.AddObservation(1f);
+        }
+        
         for (int i = 0; i < rayCount; i++)
         {
+            //Need to make two sets of rays. 
             // Spread rays across an angle
             float angle = -viewAngle / 2f + (viewAngle / (rayCount - 1)) * i;
 
             Vector2 dir = Quaternion.Euler(0, 0, angle) * transform.right;
             Vector3 offset = new Vector3(0, 0.75f, 0);
-            RaycastHit2D hit = Physics2D.Raycast(transform.position + offset, dir, viewDistance);
+            RaycastHit2D solidHit = Physics2D.Raycast(transform.position + offset, dir, viewDistance, LayerMask.GetMask("Solid"));
+            RaycastHit2D projectileHit = Physics2D.Raycast(transform.position + offset, dir, viewDistance, LayerMask.GetMask("Projectile"));
+            float solidHitType = 0f;   // what we hit
+            float solidDistance = 1f;  // normalized distance
 
-            float hitType = 0f;   // what we hit
-            float distance = 1f;  // normalized distance
+            float projectileHitType = 0f;   
+            float projectileDistance = 1f;
 
-            if (hit.collider != null)
+            if (solidHit.collider != null)
             {
-                distance = hit.distance / viewDistance;
+                solidDistance = solidHit.distance / viewDistance;
 
-                if (hit.collider.TryGetComponent<BattlerAgent>(out _) && hit.collider.gameObject != this.gameObject)
+                if (solidHit.collider.TryGetComponent<BattlerAgent>(out _) && solidHit.collider.gameObject != this.gameObject)
                 {
-                    if(hit.collider.TryGetComponent<UnitStats>(out _)){
-                        if(hit.collider.GetComponent<UnitStats>().align != this.gameObject.GetComponent<UnitStats>().align){
-                            hitType = 1f; // enemy
+                    if(solidHit.collider.TryGetComponent<UnitStats>(out _)){
+                        if(solidHit.collider.GetComponent<UnitStats>().align != this.gameObject.GetComponent<UnitStats>().align){
+                            solidHitType = 1f; // enemy
                         }
-                        else if(hit.collider.GetComponent<UnitStats>().align == this.gameObject.GetComponent<UnitStats>().align){
-                            hitType = -1f; //ally
+                        else if(solidHit.collider.GetComponent<UnitStats>().align == this.gameObject.GetComponent<UnitStats>().align){
+                            solidHitType = -1f; //ally
                         }
                         
                     }
                     
                 }
-                else if (hit.collider.TryGetComponent<Wall>(out _))
+                else if (solidHit.collider.TryGetComponent<Wall>(out _))
                 {
-                    hitType = 0f; // wall
+                    solidHitType = 0.25f; // wall
                 }
-                else if (hit.collider.TryGetComponent<Projectile>(out _))
+            }
+            if(projectileHit.collider != null) {
+                solidDistance = projectileHit.distance / viewDistance;
+                if (projectileHit.collider.TryGetComponent<Projectile>(out _))
                 {
-                    Projectile projectile = hit.collider.GetComponent<Projectile>();
+                    Projectile projectile = projectileHit.collider.GetComponent<Projectile>();
                     if(projectile.source == null){
-                        Debug.Log(hit.collider.gameObject.name + " doesn't have a source as a projectile.");
+                        Debug.Log(projectileHit.collider.gameObject.name + " doesn't have a source as a projectile.");
                         return;
                     }
                     else if(projectile.TellAlignment() != this.gameObject.GetComponent<UnitStats>().align){
                         if(projectile.friendlyFire >= 0){
-                            hitType = 0.8f; //Enemy Bullet Dangerous.
+                            projectileHitType = 0.8f; //Enemy Bullet Dangerous.
                         }
                         else{
-                            hitType = 0.6f; //Enemy Bullet Harmless. 
+                            projectileHitType = 0.6f; //Enemy Bullet Harmless. 
                         }
                     }
                     else{
                         if(projectile.friendlyFire == 0){
-                            hitType = -0.8f; //Ally Bullet Dangerous.
+                            projectileHitType = -0.8f; //Ally Bullet Dangerous.
                         }
                         else{
                             //Assumption is that ally bullets that affect only ally
                             //will not be harmful for the agent. 
-                            hitType = -0.6f; //Ally Bullet Harmless. 
+                            projectileHitType = -0.6f; //Ally Bullet Harmless. 
                         }
                     }
-                    hitType = -0.5f; // bullet (danger)
-                }
+                }   
+                
+                
             }
 
             // Add to ML observations
-            sensor.AddObservation(hitType);
-            sensor.AddObservation(distance);
+            sensor.AddObservation(projectileHitType);
+            sensor.AddObservation(projectileDistance);
+            sensor.AddObservation(solidHitType);
+            sensor.AddObservation(solidDistance);
 
             // Debug visualization
             Debug.DrawRay(transform.position, dir * viewDistance, Color.red);
@@ -124,6 +178,7 @@ public class BattlerAgent : Agent
         float moveY = actions.ContinuousActions[1];
         float rotateZ = actions.ContinuousActions[2];
         int shoot = actions.DiscreteActions[0];
+        int ability = actions.DiscreteActions[1];
         AddReward(pendingRewards);
         if(pendingRewards != 0){
             DamagePopup.ShowReward(pendingRewards, this.gameObject, floatingText);
@@ -136,14 +191,30 @@ public class BattlerAgent : Agent
             Vector2 dir = transform.up;
             shooter.Shoot(dir);
         }
+        if(ability == 1 && canAttack){
+            specialAttack.DoAction();
+        }
         Rotate(rotateZ);
-        controller.Move(new Vector2(moveX, moveY));   
+        if(canMove){
+            controller.Move(new Vector2(moveX, moveY));   
+        }
+        
     }
     public void Rotate(float amount){
         currentAngle += (amount * 2f - 1f) * rotationSpeed * Time.deltaTime;
 
         // Apply rotation
         transform.rotation = Quaternion.Euler(0, 0, currentAngle);
+    }
+    public void ToggleActing(bool canAct){
+        if(canAct){
+            canAttack = true;
+            canMove = true;
+        }
+        else{
+            canAttack = false;
+            canMove = false;
+        }
     }
     public override void Heuristic(in ActionBuffers actionsOut){
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
