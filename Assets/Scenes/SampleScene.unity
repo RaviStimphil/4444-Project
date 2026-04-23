@@ -230,8 +230,12 @@ MonoBehaviour:
   pendingRewards: 0
   rotationSpeed: 180
   currentAngle: 0
-  firePoint: {fileID: 0}
+  firePoint: {x: 0, y: 0, z: 0}
   firePointDistance: 0.5
+  basicOptions:
+  - {fileID: 11400000, guid: 8bb7a266aaede3246b04cda5083385bb, type: 2}
+  specialOptions:
+  - {fileID: 11400000, guid: 8bb7a266aaede3246b04cda5083385bb, type: 2}
   basicAttack: {fileID: 0}
   specialAttack: {fileID: 0}
   floatingText: {fileID: 7395249053861164925, guid: 1c52a74bd9f0ed049bc33af29343fb75, type: 3}
@@ -243,6 +247,8 @@ MonoBehaviour:
   rayMask:
     serializedVersion: 2
     m_Bits: 0
+  maxRewardRange: 0
+  minRewardRange: 0
 --- !u!114 &67502064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 16
+    VectorObservationSize: 27
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 3
@@ -1774,7 +1780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 16
+    VectorObservationSize: 27
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 3
@@ -1974,8 +1980,12 @@ MonoBehaviour:
   pendingRewards: 0
   rotationSpeed: 180
   currentAngle: 0
-  firePoint: {fileID: 0}
+  firePoint: {x: 0, y: 0, z: 0}
   firePointDistance: 0.5
+  basicOptions:
+  - {fileID: 11400000, guid: 8bb7a266aaede3246b04cda5083385bb, type: 2}
+  specialOptions:
+  - {fileID: 11400000, guid: 8bb7a266aaede3246b04cda5083385bb, type: 2}
   basicAttack: {fileID: 0}
   specialAttack: {fileID: 0}
   floatingText: {fileID: 7395249053861164925, guid: 1c52a74bd9f0ed049bc33af29343fb75, type: 3}
@@ -1987,6 +1997,8 @@ MonoBehaviour:
   rayMask:
     serializedVersion: 2
     m_Bits: 0
+  maxRewardRange: 0
+  minRewardRange: 0
 --- !u!114 &2107409730
 MonoBehaviour:
   m_ObjectHideFlags: 0

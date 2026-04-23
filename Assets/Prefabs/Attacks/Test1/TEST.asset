@@ -15,10 +15,12 @@ MonoBehaviour:
   ammoInfo: {fileID: 2358649526482658343, guid: a47a517a091cf1b4e94e6347504e2231, type: 3}
   source: {fileID: 0}
   isDash: 0
-  attackDuration: 0
-  attackSpeed: 0
+  attackDuration: 2
+  attackSpeed: 6
   pierceAmount: 1
-  abilityEffect: {fileID: 0}
-  castTime: 0
-  endTime: 0
-  cooldown: 0
+  maxRewardRange: 0
+  minRewardRange: 0
+  abilityEffect: {fileID: 11400000, guid: c304342b51fd230498cc6f40b3642cde, type: 2}
+  castTime: 1
+  endTime: 0.2
+  cooldown: 2

@@ -8,6 +8,7 @@ public class AttackBehavior : ScriptableObject
     public GameObject source;
 
     public bool isDash;
+    public bool isDashing;
     public float attackDuration;
     public float attackSpeed;
     public int pierceAmount = 1;
@@ -87,12 +88,12 @@ public class AttackBehavior : ScriptableObject
         currentState = AttackState.Casting;
         timer = castTime;
     }
-
     private void FireProjectile()
     {
+
         GameObject attack = Instantiate(
             ammoInfo,
-            battler.firePoint.position,
+            battler.transform.position + battler.transform.up * 0.75f,
             source.transform.rotation
         );
 
@@ -110,4 +111,6 @@ public class AttackBehavior : ScriptableObject
     {
         return currentState == AttackState.Idle;
     }
+
+
 }

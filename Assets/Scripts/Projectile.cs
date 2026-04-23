@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
     public int damageAmount;
     public int pierceAmount;
     public GameObject source;
-    AbilityData abilityEffect;
+    public AbilityData abilityEffect;
     void Start()
     {
         StartCoroutine(DeathTime());

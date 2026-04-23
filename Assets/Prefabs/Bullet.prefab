@@ -107,6 +107,7 @@ MonoBehaviour:
   damageAmount: 20
   pierceAmount: 0
   source: {fileID: 0}
+  abilityEffect: {fileID: 11400000, guid: c304342b51fd230498cc6f40b3642cde, type: 2}
 --- !u!61 &8831854177994484993
 BoxCollider2D:
   m_ObjectHideFlags: 0

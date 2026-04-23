@@ -19,7 +19,7 @@ public class BattlerAgent : Agent
     public float rotationSpeed = 180f; // degrees per second
     public float currentAngle = 0f;
 
-    public Transform firePoint;
+    public Vector3 firePoint;
     public float firePointDistance = 0.5f;
 
     public List<AttackBehavior> basicOptions;
@@ -46,8 +46,6 @@ public class BattlerAgent : Agent
     {
         controller = GetComponent<AgentController>();
         shooter = GetComponent<Shooting>();
-        Vector3 offset = new Vector3(0, 0.75f, 0);
-        firePoint.position = firePoint.position + offset;
         
     }
     public void UpdateAbility()
@@ -71,7 +69,7 @@ public class BattlerAgent : Agent
         minRewardRange = Math.Min(basicAttack.minRewardRange, specialAttack.minRewardRange);
         maxRewardRange = Math.Max(basicAttack.maxRewardRange, specialAttack.maxRewardRange);
     }
-    void FixedUpdate()
+    void Update()
     {
         basicAttack.Tick(Time.deltaTime);
         specialAttack.Tick(Time.deltaTime);
@@ -82,6 +80,8 @@ public class BattlerAgent : Agent
         this.gameObject.GetComponent<UnitStats>().ResetStats();
         currentAngle = 0f;
         UpdateAbility();
+        ToggleActing(true);
+        //Need to reset cooldown and add death...
     }
 
     public override void CollectObservations(VectorSensor sensor){
@@ -193,6 +193,7 @@ public class BattlerAgent : Agent
         }
         if(ability == 1 && canAttack){
             specialAttack.DoAction();
+            Debug.Log("It used special move");
         }
         Rotate(rotateZ);
         if(canMove){
@@ -201,7 +202,7 @@ public class BattlerAgent : Agent
         
     }
     public void Rotate(float amount){
-        currentAngle += (amount * 2f - 1f) * rotationSpeed * Time.deltaTime;
+        currentAngle += amount * rotationSpeed * Time.deltaTime;
 
         // Apply rotation
         transform.rotation = Quaternion.Euler(0, 0, currentAngle);
