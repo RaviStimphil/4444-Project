@@ -6,7 +6,9 @@ public class Projectile : MonoBehaviour
     public float lifetime = 3f;
     public int friendlyFire = 1; //1 is enemy only, 0 is enemy/ally, -1 is ally only. 
     public int damageAmount;
+    public int pierceAmount;
     public GameObject source;
+    public AbilityData abilityEffect;
     void Start()
     {
         StartCoroutine(DeathTime());
@@ -16,24 +18,37 @@ public class Projectile : MonoBehaviour
     {
         if(other.TryGetComponent<BattlerAgent>(out BattlerAgent agent) && other.gameObject != source)
         {
-            DamagePackage damage = new DamagePackage(source, other.gameObject, damageAmount);
-            SharedEvents.SendDamage(damage);
-            agent.SetReward(-1.0f);
+            //DamagePackage damage = new DamagePackage(source, other.gameObject, damageAmount);
+            foreach(var effect in abilityEffect.effects){
+                effect.Execute(source, other.gameObject);
+            }
+            //agent.SetReward(-1.0f);
             //source.GetComponent<BattlerAgent>().RewardSet(+1f);
-            Destroy(gameObject);
+            pierceAmount--;
+            if(pierceAmount <= 0){
+                DestroySelf();
+            }
         }
         if(other.TryGetComponent<Wall>(out Wall wall)){
             //source.GetComponent<BattlerAgent>().RewardAdd(-0.02f);
-            Destroy(gameObject);
+            if(pierceAmount < 100){
+                DestroySelf();
+            }
+            
         }
     }
+    public void UpdateAbilityEffect(AbilityData data){
+        abilityEffect = data;
+    }
+    public void AssignDamage(int amount){
+        damageAmount = amount;
+    }
     private void DestroySelf(){
-
+        Destroy(this.gameObject);
     }
     private IEnumerator DeathTime(){
-        yield return new WaitForSeconds(3f);
-        source.GetComponent<BattlerAgent>().RewardSet(-0.04f);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(lifetime);
+        DestroySelf();
     }
     public Alignment TellAlignment(){
         return source.GetComponent<UnitStats>().align;

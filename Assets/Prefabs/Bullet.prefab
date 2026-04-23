@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 576119005167234138}
   - component: {fileID: 8831854177994484993}
   - component: {fileID: 6278744612138325716}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,9 @@ MonoBehaviour:
   lifetime: 3
   friendlyFire: 1
   damageAmount: 20
+  pierceAmount: 0
   source: {fileID: 0}
+  abilityEffect: {fileID: 11400000, guid: c304342b51fd230498cc6f40b3642cde, type: 2}
 --- !u!61 &8831854177994484993
 BoxCollider2D:
   m_ObjectHideFlags: 0
