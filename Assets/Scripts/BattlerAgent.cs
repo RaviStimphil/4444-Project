@@ -28,18 +28,23 @@ public class BattlerAgent : Agent
     public AttackBehavior basicAttack;
     public AttackBehavior specialAttack; 
 
+    private float agentBasic;
+    private float agentSpecial;
+
     public GameObject floatingText;
         
     public bool canAttack = true;
     public bool canMove = true;
 
     public int rayCount = 5;
-    public float viewAngle = 90f;
-    public float viewDistance = 15f;
+    public float viewAngle = 60f;
+    public float viewDistance = 25f;
     public LayerMask rayMask;
 
     public float maxRewardRange;
     public float minRewardRange;
+
+
 
 
     public override void Initialize()
@@ -53,6 +58,7 @@ public class BattlerAgent : Agent
         // Pick random basic attack
         int basicIndex = UnityEngine.Random.Range(0, basicOptions.Count);
         AttackBehavior basicChoice = basicOptions[basicIndex];
+        agentBasic = (float) basicIndex / basicOptions.Count;
 
         basicAttack = Instantiate(basicChoice);
         basicAttack.Initialize(gameObject);
@@ -62,6 +68,7 @@ public class BattlerAgent : Agent
         // Pick random special attack
         int specialIndex = UnityEngine.Random.Range(0, specialOptions.Count);
         AttackBehavior specialChoice = specialOptions[specialIndex];
+        agentSpecial = (float) specialIndex / specialOptions.Count;
 
         specialAttack = Instantiate(specialChoice);
         specialAttack.Initialize(gameObject);
@@ -87,6 +94,8 @@ public class BattlerAgent : Agent
     public override void CollectObservations(VectorSensor sensor){
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(targetPos.localPosition);
+        sensor.AddObservation(agentBasic);
+        sensor.AddObservation(agentSpecial);
         if(!canAttack){
             sensor.AddObservation(0f);
         }else{
@@ -99,7 +108,7 @@ public class BattlerAgent : Agent
             // Spread rays across an angle
             float angle = -viewAngle / 2f + (viewAngle / (rayCount - 1)) * i;
 
-            Vector2 dir = Quaternion.Euler(0, 0, angle) * transform.right;
+            Vector2 dir = Quaternion.Euler(0, 0, angle) * transform.up;
             Vector3 offset = new Vector3(0, 0.75f, 0);
             RaycastHit2D solidHit = Physics2D.Raycast(transform.position + offset, dir, viewDistance, LayerMask.GetMask("Solid"));
             RaycastHit2D projectileHit = Physics2D.Raycast(transform.position + offset, dir, viewDistance, LayerMask.GetMask("Projectile"));
@@ -186,10 +195,9 @@ public class BattlerAgent : Agent
         
         pendingRewards = 0;
         
-        if(shoot == 1)
+        if(shoot == 1 && canAttack)
         {
-            Vector2 dir = transform.up;
-            shooter.Shoot(dir);
+            basicAttack.DoAction();
         }
         if(ability == 1 && canAttack){
             specialAttack.DoAction();

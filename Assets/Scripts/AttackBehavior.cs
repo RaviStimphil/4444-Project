@@ -8,7 +8,9 @@ public class AttackBehavior : ScriptableObject
     public GameObject source;
 
     public bool isDash;
-    public bool isDashing;
+    public float dashForce;
+    public float startDistance = 0.75f;
+    public bool connectedToAgent;
     public float attackDuration;
     public float attackSpeed;
     public int pierceAmount = 1;
@@ -56,7 +58,13 @@ public class AttackBehavior : ScriptableObject
             case AttackState.Casting:
                 if (timer <= 0f)
                 {
-                    FireProjectile();
+                    if(isDash){
+                        Dash();
+                    }
+                    if(ammoInfo){
+                        FireProjectile();
+                    }
+                    
                     currentState = AttackState.EndLag;
                     timer = endTime;
                 }
@@ -88,14 +96,20 @@ public class AttackBehavior : ScriptableObject
         currentState = AttackState.Casting;
         timer = castTime;
     }
+    //w7p462
+    private void Dash(){
+        Rigidbody2D rb = source.GetComponent<Rigidbody2D>();
+        rb.AddForce(source.transform.up * dashForce, ForceMode2D.Impulse);
+    }
     private void FireProjectile()
     {
-
-        GameObject attack = Instantiate(
-            ammoInfo,
-            battler.transform.position + battler.transform.up * 0.75f,
-            source.transform.rotation
-        );
+        GameObject attack = Instantiate(ammoInfo);
+        if(connectedToAgent){
+            attack.transform.SetParent(source.transform);
+        }else{
+            attack.transform.position =  battler.transform.position + battler.transform.up * 0.75f;
+            attack.transform.rotation = source.transform.rotation;
+        }
 
         Rigidbody2D rb = attack.GetComponent<Rigidbody2D>();
         rb.AddForce(attack.transform.up * attackSpeed, ForceMode2D.Impulse);

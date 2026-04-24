@@ -42,3 +42,13 @@ public class KnockbackEffect : AbilityEffect {
         Debug.Log($"{caster.name} knocked back {target.name} with force {force}");
     }
 }
+
+[Serializable]
+public class SelfDamageEffect : AbilityEffect {
+    public int amount;
+    
+    public override void Execute(GameObject caster, GameObject target) {
+        DamagePackage damage = new DamagePackage(caster, caster, amount);  
+        SharedEvents.SendDamage(damage); 
+    }
+}

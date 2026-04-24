@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: addfcf684de479241b2e986d4d8097c4, type: 3}
-  m_Name: TEST
+  m_Name: NormalBehavior
   m_EditorClassIdentifier: 
-  ammoInfo: {fileID: 2358649526482658343, guid: a47a517a091cf1b4e94e6347504e2231, type: 3}
+  ammoInfo: {fileID: 5146142634013333203, guid: 07b3391af77a8e64799c8143ad95eafc, type: 3}
   source: {fileID: 0}
   isDash: 0
   dashForce: 0
   startDistance: 0.75
   connectedToAgent: 0
-  attackDuration: 2
-  attackSpeed: 6
+  attackDuration: 1.4
+  attackSpeed: 3
   pierceAmount: 1
   maxRewardRange: 0
   minRewardRange: 0
-  abilityEffect: {fileID: 11400000, guid: c304342b51fd230498cc6f40b3642cde, type: 2}
-  castTime: 2
-  endTime: 0.2
-  cooldown: 8
+  abilityEffect: {fileID: 11400000, guid: 356661d9b6b76d543a3bf0b095d9b2c7, type: 2}
+  castTime: 0.3
+  endTime: 0
+  cooldown: 1.5
