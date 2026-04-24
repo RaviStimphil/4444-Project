@@ -9,6 +9,12 @@ public class Projectile : MonoBehaviour
     public int pierceAmount;
     public GameObject source;
     public AbilityData abilityEffect;
+    void OnEnable(){
+        SharedEvents.startRound += DestroySelf;
+    }
+    void OnDisable(){
+        SharedEvents.startRound -= DestroySelf;
+    }
     void Start()
     {
         StartCoroutine(DeathTime());

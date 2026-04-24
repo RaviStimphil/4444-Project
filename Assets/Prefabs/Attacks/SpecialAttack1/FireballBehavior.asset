@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: addfcf684de479241b2e986d4d8097c4, type: 3}
-  m_Name: TEST
+  m_Name: FireballBehavior
   m_EditorClassIdentifier: 
-  ammoInfo: {fileID: 2358649526482658343, guid: a47a517a091cf1b4e94e6347504e2231, type: 3}
+  ammoInfo: {fileID: 2226553198614037646, guid: 014602b0bd84b0c4894a2e007e11b8d3, type: 3}
   source: {fileID: 0}
   isDash: 0
   dashForce: 0
   startDistance: 0.75
   connectedToAgent: 0
-  attackDuration: 2
-  attackRange: 60
-  pierceAmount: 1
+  attackDuration: 5
+  attackRange: 15
+  pierceAmount: 10
   maxRewardRange: 0
   minRewardRange: 0
-  abilityEffect: {fileID: 11400000, guid: c304342b51fd230498cc6f40b3642cde, type: 2}
+  abilityEffect: {fileID: 11400000, guid: b8d10d4fa25402e4f8dc82ad69ecf55b, type: 2}
   castTime: 2
   endTime: 0.2
-  cooldown: 8
+  cooldown: 10

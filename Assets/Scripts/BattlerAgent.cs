@@ -84,6 +84,7 @@ public class BattlerAgent : Agent
 
     public override void OnEpisodeBegin(){
         transform.localPosition = respawnPoint;
+        SharedEvents.BeginRound();
         this.gameObject.GetComponent<UnitStats>().ResetStats();
         currentAngle = 0f;
         UpdateAbility();

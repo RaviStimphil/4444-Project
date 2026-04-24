@@ -19,7 +19,7 @@ MonoBehaviour:
   startDistance: 0.75
   connectedToAgent: 0
   attackDuration: 1.4
-  attackSpeed: 3
+  attackRange: 8
   pierceAmount: 1
   maxRewardRange: 0
   minRewardRange: 0

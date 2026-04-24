@@ -12,7 +12,7 @@ public class AttackBehavior : ScriptableObject
     public float startDistance = 0.75f;
     public bool connectedToAgent;
     public float attackDuration;
-    public float attackSpeed;
+    public float attackRange;
     public int pierceAmount = 1;
 
     public float maxRewardRange;
@@ -112,7 +112,7 @@ public class AttackBehavior : ScriptableObject
         }
 
         Rigidbody2D rb = attack.GetComponent<Rigidbody2D>();
-        rb.AddForce(attack.transform.up * attackSpeed, ForceMode2D.Impulse);
+        rb.AddForce(attack.transform.up * attackRange/attackDuration, ForceMode2D.Impulse);
 
         Projectile ammo = attack.GetComponent<Projectile>();
         ammo.lifetime = attackDuration;
