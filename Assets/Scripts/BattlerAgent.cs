@@ -12,9 +12,15 @@ public class BattlerAgent : Agent
     public Transform targetPos;
     public float moveSpeed;
     private AgentController controller;
-    public Shooting shooter;
     public Vector3 respawnPoint;
     public float pendingRewards;
+
+    private Collider2D col;
+    private Rigidbody2D rb;
+    private int aliveLayer;
+    private int deadLayer;
+
+    private bool isDead = false;
 
     public float rotationSpeed = 180f; // degrees per second
     public float currentAngle = 0f;
@@ -50,7 +56,12 @@ public class BattlerAgent : Agent
     public override void Initialize()
     {
         controller = GetComponent<AgentController>();
-        shooter = GetComponent<Shooting>();
+
+        col = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
+
+        aliveLayer = LayerMask.NameToLayer("Solid");
+        deadLayer = LayerMask.NameToLayer("Dead");
         
     }
     public void UpdateAbility()
@@ -76,10 +87,15 @@ public class BattlerAgent : Agent
         minRewardRange = Math.Min(basicAttack.minRewardRange, specialAttack.minRewardRange);
         maxRewardRange = Math.Max(basicAttack.maxRewardRange, specialAttack.maxRewardRange);
     }
-    void Update()
+    void FixedUpdate()
     {
-        basicAttack.Tick(Time.deltaTime);
-        specialAttack.Tick(Time.deltaTime);
+        if(basicAttack){
+            basicAttack.Tick(Time.deltaTime);
+        }
+        if(specialAttack){
+            specialAttack.Tick(Time.deltaTime);
+        }
+        
     }
 
     public override void OnEpisodeBegin(){
@@ -97,6 +113,13 @@ public class BattlerAgent : Agent
         sensor.AddObservation(targetPos.localPosition);
         sensor.AddObservation(agentBasic);
         sensor.AddObservation(agentSpecial);
+        sensor.AddObservation(basicAttack.GetCooldownNormalized());
+        sensor.AddObservation(specialAttack.GetCooldownNormalized());
+        if(isDead){
+            sensor.AddObservation(-1);
+        }else{
+            sensor.AddObservation(1);
+        }
         if(!canAttack){
             sensor.AddObservation(0f);
         }else{
@@ -216,6 +239,19 @@ public class BattlerAgent : Agent
         // Apply rotation
         transform.rotation = Quaternion.Euler(0, 0, currentAngle);
     }
+    public void ToggleDeath(bool dead){
+        col.enabled = !dead;
+        ToggleActing(dead);
+        rb.simulated = !dead;
+        isDead = dead;
+        if(dead){
+            rb.linearVelocity = Vector2.zero;
+            gameObject.layer = deadLayer;
+            
+        }else{
+            gameObject.layer = aliveLayer;
+        }
+    }
     public void ToggleActing(bool canAct){
         if(canAct){
             canAttack = true;
@@ -248,17 +284,5 @@ public class BattlerAgent : Agent
     public void PendingRewardAdd(float amount){
         pendingRewards += amount; 
     }
-    private void OnTriggerEnter2D(Collider2D other){
-        if(other.TryGetComponent<Goal>(out Goal goal)){
-            SetReward(+1f);
-            EndEpisode(); 
-        }
-        if(other.TryGetComponent<Wall>(out Wall wall)){
-            SetReward(-1f);
-            EndEpisode(); 
-        }
-        if(other.TryGetComponent<Projectile>(out Projectile projectile)){
-            //EndEpisode(); 
-        }
-    }
+    
 }

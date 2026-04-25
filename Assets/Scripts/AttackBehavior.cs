@@ -87,7 +87,11 @@ public class AttackBehavior : ScriptableObject
                 break;
         }
     }
-
+    public float GetCooldownNormalized()
+    {
+        if (currentState != AttackState.Cooldown) return 0f;
+        return timer / cooldown; // 0 ready, 1 just started cooldown
+    }
     public void DoAction()
     {
         if (currentState != AttackState.Idle) return;

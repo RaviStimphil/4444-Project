@@ -13,10 +13,12 @@ public class UnitStats : MonoBehaviour
     public int currentHP;
     public bool isDead;
     
+    public BattlerAgent agent;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        agent = GetComponent<BattlerAgent>();
         ResetStats();
     }
 
@@ -37,13 +39,14 @@ public class UnitStats : MonoBehaviour
     public void CheckDeath(){
         if(currentHP <= 0){
             isDead = true;
-
+            agent.ToggleDeath(isDead);
         }
     }
 
     public void ResetStats(){
         ResetHP();
         isDead = false; 
+        agent.ToggleDeath(isDead);
     }
     public void ResetHP(){
         currentHP = maxHP;

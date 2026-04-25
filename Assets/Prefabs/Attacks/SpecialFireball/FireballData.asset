@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8590690ff17b5d40b512b1f953c1d99, type: 3}
   m_Name: FireballData
   m_EditorClassIdentifier: 
-  label: FireballBehavior 1
+  label: FireballData
   animationClip: {fileID: 0}
   effects:
   - rid: 3774181962408525898
