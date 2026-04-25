@@ -22,4 +22,4 @@ MonoBehaviour:
     - rid: 3774181962408525897
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        amount: 5
+        amount: 8

@@ -24,7 +24,7 @@ MonoBehaviour:
     - rid: 3774181962408525900
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        amount: 10
+        amount: 15
     - rid: 3774181962408525901
       type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -32,4 +32,4 @@ MonoBehaviour:
     - rid: 3774181962408525902
       type: {class: SelfDamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        amount: -10
+        amount: -15

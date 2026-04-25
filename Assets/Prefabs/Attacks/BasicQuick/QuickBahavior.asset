@@ -18,12 +18,12 @@ MonoBehaviour:
   dashForce: 0
   startDistance: 0.75
   connectedToAgent: 0
-  attackDuration: 1
-  attackRange: 20
+  attackDuration: 1.6
+  attackRange: 12
   pierceAmount: 1
   maxRewardRange: 0
   minRewardRange: 0
   abilityEffect: {fileID: 11400000, guid: 2c921b81ceed7a249ac59e5162aa2ada, type: 2}
   castTime: 0.05
   endTime: 0.1
-  cooldown: 0.6
+  cooldown: 0.5

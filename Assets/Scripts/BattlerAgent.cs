@@ -101,6 +101,7 @@ public class BattlerAgent : Agent
     public override void OnEpisodeBegin(){
         transform.localPosition = respawnPoint;
         SharedEvents.BeginRound();
+        ToggleDeath(false);
         this.gameObject.GetComponent<UnitStats>().ResetStats();
         currentAngle = 0f;
         UpdateAbility();
@@ -257,7 +258,7 @@ public class BattlerAgent : Agent
             canAttack = true;
             canMove = true;
         }
-        else{
+        else if(isDead){
             canAttack = false;
             canMove = false;
         }
