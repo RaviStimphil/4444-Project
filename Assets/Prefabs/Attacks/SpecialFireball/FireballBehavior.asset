@@ -18,7 +18,7 @@ MonoBehaviour:
   dashForce: 0
   startDistance: 0.75
   connectedToAgent: 0
-  attackDuration: 5
+  attackDuration: 8
   attackRange: 15
   pierceAmount: 10
   maxRewardRange: 0

@@ -8,6 +8,8 @@ using System.Text;
 public class DamageManager : MonoBehaviour
 {
     public Dictionary<string, AccuracyPackage> accuracyData;
+    public float accuracyInterval;
+    public int count = 1;
     void OnEnable(){
         SharedEvents.damageHit += DamageUnit;
         SharedEvents.skillHit += CollectAccuracyData;
@@ -21,6 +23,7 @@ public class DamageManager : MonoBehaviour
     void Start()
     {
         accuracyData = new Dictionary<string, AccuracyPackage>();
+        StartCoroutine(AccuracyChecker());
     }
 
     // Update is called once per frame
@@ -30,6 +33,14 @@ public class DamageManager : MonoBehaviour
         {
             ShowAccuracy();
         }
+    }
+    private IEnumerator AccuracyChecker(){
+        while(true){
+            yield return new WaitForSeconds(accuracyInterval);
+            ShowAccuracy();
+            count++;
+        }
+        
     }
     private void CollectAccuracyData(string label, bool hit){
         if(accuracyData.ContainsKey(label)){
@@ -50,6 +61,7 @@ public class DamageManager : MonoBehaviour
     }
     public void ShowAccuracy(){
         StringBuilder dataString = new StringBuilder();
+        dataString.Append((count * 10) + " minutes update:\n");
         foreach(var pair in accuracyData){
             dataString.Append("Accuracy Data for Ability: " + pair.Key + "\n");
             dataString.Append("Total Accuracy: " + pair.Value.TotalAccuracy(1f) + ".\n");

@@ -39,7 +39,7 @@ public class KnockbackEffect : AbilityEffect {
     public override void Execute(GameObject caster, GameObject target) {
         var dir = (target.transform.position - caster.transform.position).normalized;
         target.GetComponent<Rigidbody2D>().AddForce(dir * force, ForceMode2D.Impulse);
-        Debug.Log($"{caster.name} knocked back {target.name} with force {force}");
+        //Debug.Log($"{caster.name} knocked back {target.name} with force {force}");
     }
 }
 

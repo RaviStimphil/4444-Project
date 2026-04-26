@@ -1965,6 +1965,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e4cf50a5692a242b72271812f78d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  accuracyInterval: 600
+  count: 1
 --- !u!4 &423750166
 Transform:
   m_ObjectHideFlags: 0
