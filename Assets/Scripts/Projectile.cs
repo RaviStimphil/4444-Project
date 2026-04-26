@@ -56,7 +56,7 @@ public class Projectile : MonoBehaviour
             source.GetComponent<BattlerAgent>().RewardAdd(0.1f);
             SharedEvents.DidAbilityHit(abilityEffect.label, false);
         }else{
-            source.GetComponent<BattlerAgent>().RewardAdd(-0.03f);
+            source.GetComponent<BattlerAgent>().RewardAdd(-0.02f);
             SharedEvents.DidAbilityHit(abilityEffect.label, true);
         }
         Destroy(this.gameObject);

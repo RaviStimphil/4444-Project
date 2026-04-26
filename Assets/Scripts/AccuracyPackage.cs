@@ -29,7 +29,7 @@ public class AccuracyPackage : MonoBehaviour
         }
     }
     public float TotalAccuracy(float recentPercentage){
-        int i = (int) Mathf.Round((recentPercentage * accuracyChecks.Count) - accuracyChecks.Count);
+        int i = (int) Mathf.Round(accuracyChecks.Count - (recentPercentage * accuracyChecks.Count) );
         int success = 0;
         int amount = 0;
         for(i = i; i < accuracyChecks.Count; i++){
@@ -38,6 +38,6 @@ public class AccuracyPackage : MonoBehaviour
                 success++;
             }
         }
-        return (float) success/amount; 
+        return (float) (amount - success)/amount; 
     }
 }

@@ -17,7 +17,8 @@ If you want to see how training go:
 Download miniconda
 In the anaconda prompt (Search “anaconda prompt” in computer search) “conda create -n mlagents python=3.10.12”
 “conda activate mlagents” in the prompt
-While in mlagents environment, put “pip install mlagents”
+
+While in mlagents environment, put “pip install mlagents” and “pip install torch==2.8.0”.
 Then go to the path of the project “cd C:\Users\Lyoko\Documents\GitHub\4444-Project” or “cd C:\Users\...\444-Project” Whatever the path is to the project.
-“Mlagents-learn config/ppo/MoveToGoal.yaml –run-id=[Put whatever name you want]” to make a training run. Use --force to overwrite one with the same name or just use a different name. 
+“Mlagents-learn config/ppo/MoveToGoal.yaml --run-id=[Put whatever name you want]” to make a training run. Use --force to overwrite one with the same name or just use a different name. 
 

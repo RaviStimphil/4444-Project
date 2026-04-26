@@ -116,6 +116,7 @@ public class BattlerAgent : Agent
         sensor.AddObservation(agentSpecial);
         sensor.AddObservation(basicAttack.GetCooldownNormalized());
         sensor.AddObservation(specialAttack.GetCooldownNormalized());
+        sensor.AddObservation(this.gameObject.GetComponent<UnitStats>().currentHP/this.gameObject.GetComponent<UnitStats>().maxHP);
         if(isDead){
             sensor.AddObservation(-1);
         }else{
@@ -152,6 +153,7 @@ public class BattlerAgent : Agent
                     if(solidHit.collider.TryGetComponent<UnitStats>(out _)){
                         if(solidHit.collider.GetComponent<UnitStats>().align != this.gameObject.GetComponent<UnitStats>().align){
                             solidHitType = 1f; // enemy
+                            RewardAdd(0.04f);
                         }
                         else if(solidHit.collider.GetComponent<UnitStats>().align == this.gameObject.GetComponent<UnitStats>().align){
                             solidHitType = -1f; //ally
@@ -226,7 +228,6 @@ public class BattlerAgent : Agent
         }
         if(ability == 1 && canAttack){
             specialAttack.DoAction();
-            Debug.Log("It used special move");
         }
         Rotate(rotateZ);
         if(canMove){
@@ -285,5 +286,12 @@ public class BattlerAgent : Agent
     public void PendingRewardAdd(float amount){
         pendingRewards += amount; 
     }
-    
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        // Check if the object collided with has the tag "RechargePoint"
+        if (collision.gameObject.TryGetComponent<Wall>(out _))
+        {
+            RewardAdd(-0.1f);
+        }
+    }
 }

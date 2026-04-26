@@ -1,9 +1,29 @@
 behaviors:
   MoveToGoal:
     trainer_type: ppo
-    max_steps: 500000
+    max_steps: 20000000
     time_horizon: 64
     summary_freq: 10000
+
+    hyperparameters:
+      batch_size: 64
+      buffer_size: 2048
+      learning_rate: 3e-4
+
+    network_settings:
+      hidden_units: 128
+      num_layers: 2
+
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+  FightBattle:
+    trainer_type: ppo
+    max_steps: 20000000
+    time_horizon: 64
+    summary_freq: 10000
+    checkpoint_interval: 5000000
 
     hyperparameters:
       batch_size: 64
