@@ -10,21 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8590690ff17b5d40b512b1f953c1d99, type: 3}
-  m_Name: FireballData
+  m_Name: QuickData
   m_EditorClassIdentifier: 
-  label: FireballBehavior 1
+  label: QuickData
   animationClip: {fileID: 0}
   effects:
-  - rid: 3774181962408525898
-  - rid: 3774181962408525899
+  - rid: 3774181962408525897
   references:
     version: 2
     RefIds:
-    - rid: 3774181962408525898
+    - rid: 3774181962408525897
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        amount: 60
-    - rid: 3774181962408525899
-      type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
-      data:
-        force: 18
+        amount: 8

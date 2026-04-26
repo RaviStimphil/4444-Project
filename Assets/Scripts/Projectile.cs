@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     public int pierceAmount;
     public GameObject source;
     public AbilityData abilityEffect;
+    public bool hitTarget;
     void OnEnable(){
         SharedEvents.startRound += DestroySelf;
     }
@@ -28,8 +29,9 @@ public class Projectile : MonoBehaviour
             foreach(var effect in abilityEffect.effects){
                 effect.Execute(source, other.gameObject);
             }
-            //agent.SetReward(-1.0f);
-            //source.GetComponent<BattlerAgent>().RewardSet(+1f);
+            if(other.GetComponent<UnitStats>().align != source.GetComponent<UnitStats>().align){
+                hitTarget = true;
+            }
             pierceAmount--;
             if(pierceAmount <= 0){
                 DestroySelf();
@@ -50,6 +52,13 @@ public class Projectile : MonoBehaviour
         damageAmount = amount;
     }
     private void DestroySelf(){
+        if(hitTarget == true){
+            source.GetComponent<BattlerAgent>().RewardAdd(0.1f);
+            SharedEvents.DidAbilityHit(abilityEffect.label, false);
+        }else{
+            source.GetComponent<BattlerAgent>().RewardAdd(-0.03f);
+            SharedEvents.DidAbilityHit(abilityEffect.label, true);
+        }
         Destroy(this.gameObject);
     }
     private IEnumerator DeathTime(){

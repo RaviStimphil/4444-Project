@@ -43,7 +43,7 @@ public class DamagePopup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float moveYSpeed = 5f;
+        float moveYSpeed = 2.4f;
         transform.position += new Vector3(0, moveYSpeed) * Time.deltaTime;
     }
     public IEnumerator LifeTime(){

@@ -249,12 +249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297ead5e05a556a409ac7ffbce909ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 2358649526482658343, guid: a47a517a091cf1b4e94e6347504e2231, type: 3}
-  firePoint: {fileID: 976435573}
-  source: {fileID: 0}
-  projectileSpeed: 6
-  attackCooldown: 1
-  canAttack: 1
 --- !u!114 &67502061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,9 +294,8 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 2500
   targetPos: {fileID: 2107409727}
-  moveSpeed: 5
-  shooter: {fileID: 0}
-  respawnPoint: {x: 10, y: 2, z: 0}
+  moveSpeed: 2.5
+  respawnPoint: {x: 10, y: 6, z: 0}
   pendingRewards: 0
   rotationSpeed: 180
   currentAngle: 0
@@ -342,8 +335,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 29
-    NumStackedVectorObservations: 1
+    VectorObservationSize: 32
+    NumStackedVectorObservations: 6
     m_ActionSpec:
       m_NumContinuousActions: 3
       BranchSizes: 0200000002000000
@@ -3281,7 +3274,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 649037537}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4665,8 +4659,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 29
-    NumStackedVectorObservations: 1
+    VectorObservationSize: 32
+    NumStackedVectorObservations: 6
     m_ActionSpec:
       m_NumContinuousActions: 3
       BranchSizes: 0200000002000000
@@ -4860,8 +4854,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 2500
   targetPos: {fileID: 67502059}
-  moveSpeed: 5
-  shooter: {fileID: 0}
+  moveSpeed: 2.5
   respawnPoint: {x: 0, y: 0, z: 0}
   pendingRewards: 0
   rotationSpeed: 180
@@ -4914,12 +4907,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297ead5e05a556a409ac7ffbce909ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 2358649526482658343, guid: a47a517a091cf1b4e94e6347504e2231, type: 3}
-  firePoint: {fileID: 1539702817}
-  source: {fileID: 0}
-  projectileSpeed: 6
-  attackCooldown: 1
-  canAttack: 1
 --- !u!114 &2107409732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4949,6 +4936,7 @@ MonoBehaviour:
   maxHP: 80
   currentHP: 0
   isDead: 0
+  agent: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

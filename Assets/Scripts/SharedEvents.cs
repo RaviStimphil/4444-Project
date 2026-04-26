@@ -10,6 +10,7 @@ public class SharedEvents : MonoBehaviour
     public static event Action<DamagePackage> damageTaken; //Announcement the agent does with how much damage it took. 
     public static event Action<GameObject> unitDeath;
     public static event Action startRound;
+    public static event Action<string, bool> skillHit;
 
     public static void SendDamage(DamagePackage info){
         damageHit?.Invoke(info);
@@ -23,5 +24,8 @@ public class SharedEvents : MonoBehaviour
     }
     public static void BeginRound(){
         startRound?.Invoke();
+    }
+    public static void DidAbilityHit(string label, bool hit){
+        skillHit?.Invoke(label, hit);
     }
 }

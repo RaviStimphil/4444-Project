@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: addfcf684de479241b2e986d4d8097c4, type: 3}
-  m_Name: HookBehavior
+  m_Name: HeavyBehavior
   m_EditorClassIdentifier: 
-  ammoInfo: {fileID: 8276195862852439194, guid: c67811f3d462b3f46b9eff3fdd1b7430, type: 3}
+  ammoInfo: {fileID: 6023891866231888746, guid: 34b07f3cde0525647af100dba788f68b, type: 3}
   source: {fileID: 0}
-  isDash: 0
-  dashForce: 0
+  isDash: 1
+  dashForce: 0.5
   startDistance: 0.75
   connectedToAgent: 0
-  attackDuration: 0.7
-  attackRange: 30
-  pierceAmount: 1
+  attackDuration: 1.2
+  attackRange: 2
+  pierceAmount: 999
   maxRewardRange: 0
   minRewardRange: 0
-  abilityEffect: {fileID: 11400000, guid: 1c1962c6ee095144399c1a23d822639a, type: 2}
-  castTime: 1.2
-  endTime: 0.2
-  cooldown: 10
+  abilityEffect: {fileID: 11400000, guid: 9b04e07a4e0636340a665b8645916ffc, type: 2}
+  castTime: 0.2
+  endTime: 0.1
+  cooldown: 2.2
