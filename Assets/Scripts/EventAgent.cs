@@ -41,10 +41,10 @@ public class EventAgent : MonoBehaviour
                     //If the agent did 30% of an allied agent HP, it is sent as -0.3
                     //-0.3 * 3 = -0.9 reward. Agent should learn not to damage ally.
                 }else{
-                    agent.PendingRewardAdd(pack.damagePercent); //If the agent didn't do the action, it gets some, but not as much.
+                    //agent.PendingRewardAdd(pack.damagePercent); //If the agent didn't do the action, it gets some, but not as much.
                 }
             }else{
-                agent.PendingRewardAdd(-pack.damagePercent); //If the agent is not involved, it gets its reward. 
+                //agent.PendingRewardAdd(-pack.damagePercent); //If the agent is not involved, it gets its reward. 
                 
             }
         }
@@ -54,7 +54,7 @@ public class EventAgent : MonoBehaviour
                 agent.PendingRewardAdd(pack.damagePercent * 3f);
                 //Agent should learn to avoid damage. 
             }else{
-                agent.PendingRewardAdd(pack.damagePercent);
+                //agent.PendingRewardAdd(pack.damagePercent);
             }
         }
         //Allied agents and self dealing damage is good. 
@@ -62,13 +62,13 @@ public class EventAgent : MonoBehaviour
             if(pack.source == this.gameObject){
                 agent.PendingRewardAdd(-pack.damagePercent * 3f);
             }else{
-                agent.PendingRewardAdd(-pack.damagePercent);
+                //agent.PendingRewardAdd(-pack.damagePercent);
             }
         }
         //If there's a third faction for some reason... 
         //Enemies attacking each other is good. 
         else{
-            agent.PendingRewardAdd(-pack.damagePercent);
+            //agent.PendingRewardAdd(-pack.damagePercent);
         }
     }
 }

@@ -26,7 +26,10 @@ public class DamageManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ShowAccuracy();
+        }
     }
     private void CollectAccuracyData(string label, bool hit){
         if(accuracyData.ContainsKey(label)){
