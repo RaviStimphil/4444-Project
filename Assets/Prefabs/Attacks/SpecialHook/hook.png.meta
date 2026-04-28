@@ -103,12 +103,12 @@ TextureImporter:
       name: hook_0
       rect:
         serializedVersion: 2
-        x: 181
-        y: 78
-        width: 1618
-        height: 843
+        x: 0
+        y: 0
+        width: 1096
+        height: 1950
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b4013c598a166bb48af2339cbd6746d1
     internalID: 0
     vertices: []
     indices: 

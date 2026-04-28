@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoInfo: {fileID: 160449919562101957, guid: 158354cf9a95d0843a5ff65d711b31c5, type: 3}
   source: {fileID: 0}
-  isDash: 0
+  isDash: 1
   dashForce: 0
   startDistance: 0.75
   connectedToAgent: 0

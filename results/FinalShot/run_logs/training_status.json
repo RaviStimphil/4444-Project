@@ -1,0 +1,38 @@
+{
+    "FightBattle": {
+        "checkpoints": [
+            {
+                "steps": 512,
+                "file_path": "results\\FinalShot\\FightBattle\\FightBattle-512.onnx",
+                "reward": null,
+                "creation_time": 1777387968.4245467,
+                "auxillary_file_paths": [
+                    "results\\FinalShot\\FightBattle\\FightBattle-512.pt"
+                ]
+            },
+            {
+                "steps": 6998656,
+                "file_path": "results\\FinalShot\\FightBattle\\FightBattle-6998656.onnx",
+                "reward": null,
+                "creation_time": 1777398709.027414,
+                "auxillary_file_paths": [
+                    "results\\FinalShot\\FightBattle\\FightBattle-6998656.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 6998656,
+            "file_path": "results\\FinalShot\\FightBattle.onnx",
+            "reward": null,
+            "creation_time": 1777398709.027414,
+            "auxillary_file_paths": [
+                "results\\FinalShot\\FightBattle\\FightBattle-6998656.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.8.0+cpu"
+    }
+}

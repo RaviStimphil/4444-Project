@@ -28,7 +28,7 @@ MonoBehaviour:
     - rid: 3774181962408525901
       type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
       data:
-        force: -20
+        force: -15
     - rid: 3774181962408525902
       type: {class: SelfDamageEffect, ns: , asm: Assembly-CSharp}
       data:

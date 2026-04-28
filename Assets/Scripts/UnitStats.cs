@@ -43,7 +43,7 @@ public class UnitStats : MonoBehaviour
         if(currentHP <= 0){
             isDead = true;
             agent.ToggleDeath(isDead);
-            agent.AddReward(-5f);
+            agent.AddReward(-50f);
         }
     }
 

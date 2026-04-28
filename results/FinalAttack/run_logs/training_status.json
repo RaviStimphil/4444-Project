@@ -1,0 +1,29 @@
+{
+    "FightBattle": {
+        "checkpoints": [
+            {
+                "steps": 24704,
+                "file_path": "results\\FinalAttack\\FightBattle\\FightBattle-24704.onnx",
+                "reward": null,
+                "creation_time": 1777264667.55639,
+                "auxillary_file_paths": [
+                    "results\\FinalAttack\\FightBattle\\FightBattle-24704.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 24704,
+            "file_path": "results\\FinalAttack\\FightBattle.onnx",
+            "reward": null,
+            "creation_time": 1777264667.55639,
+            "auxillary_file_paths": [
+                "results\\FinalAttack\\FightBattle\\FightBattle-24704.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.8.0+cpu"
+    }
+}

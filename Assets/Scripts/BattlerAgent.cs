@@ -62,6 +62,10 @@ public class BattlerAgent : Agent
 
         aliveLayer = LayerMask.NameToLayer("Solid");
         deadLayer = LayerMask.NameToLayer("Dead");
+
+        float offsetX = UnityEngine.Random.Range(-2, 2);
+        float offsetY = UnityEngine.Random.Range(-2, 2);
+        transform.localPosition = respawnPoint + new Vector3(offsetX,offsetY,0);
         
     }
     public void UpdateAbility()
@@ -99,24 +103,27 @@ public class BattlerAgent : Agent
     }
 
     public override void OnEpisodeBegin(){
-        transform.localPosition = respawnPoint;
+        float offsetX = UnityEngine.Random.Range(-2, 2);
+        float offsetY = UnityEngine.Random.Range(-2, 2);
+        transform.localPosition = respawnPoint + new Vector3(offsetX,offsetY,0);
         SharedEvents.BeginRound();
-        ToggleDeath(false);
+        
         this.gameObject.GetComponent<UnitStats>().ResetStats();
         currentAngle = 0f;
         UpdateAbility();
         ToggleActing(true);
+        ToggleDeath(false);
         //Need to reset cooldown and add death...
     }
 
     public override void CollectObservations(VectorSensor sensor){
         sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(targetPos.localPosition);
         sensor.AddObservation(agentBasic);
         sensor.AddObservation(agentSpecial);
         sensor.AddObservation(basicAttack.GetCooldownNormalized());
         sensor.AddObservation(specialAttack.GetCooldownNormalized());
         sensor.AddObservation(this.gameObject.GetComponent<UnitStats>().currentHP/this.gameObject.GetComponent<UnitStats>().maxHP);
+        sensor.AddObservation((currentAngle % 360 + 360) % 360);
         if(isDead){
             sensor.AddObservation(-1);
         }else{
@@ -133,7 +140,10 @@ public class BattlerAgent : Agent
             //Need to make two sets of rays. 
             // Spread rays across an angle
             float angle = -viewAngle / 2f + (viewAngle / (rayCount - 1)) * i;
-
+            bool straight = false;
+            if(angle <= (Math.Abs(5))){
+                straight = true;
+            }
             Vector2 dir = Quaternion.Euler(0, 0, angle) * transform.up;
             Vector3 offset = new Vector3(0, 0.75f, 0);
             RaycastHit2D solidHit = Physics2D.Raycast(transform.position + offset, dir, viewDistance, LayerMask.GetMask("Solid"));
@@ -153,7 +163,9 @@ public class BattlerAgent : Agent
                     if(solidHit.collider.TryGetComponent<UnitStats>(out _)){
                         if(solidHit.collider.GetComponent<UnitStats>().align != this.gameObject.GetComponent<UnitStats>().align){
                             solidHitType = 1f; // enemy
-                            RewardAdd(0.04f);
+                            if(straight){
+                                RewardAdd(0.2f);
+                            }
                         }
                         else if(solidHit.collider.GetComponent<UnitStats>().align == this.gameObject.GetComponent<UnitStats>().align){
                             solidHitType = -1f; //ally
@@ -168,7 +180,7 @@ public class BattlerAgent : Agent
                 }
             }
             if(projectileHit.collider != null) {
-                solidDistance = projectileHit.distance / viewDistance;
+                projectileDistance = projectileHit.distance / viewDistance;
                 if (projectileHit.collider.TryGetComponent<Projectile>(out _))
                 {
                     Projectile projectile = projectileHit.collider.GetComponent<Projectile>();
@@ -242,10 +254,15 @@ public class BattlerAgent : Agent
         transform.rotation = Quaternion.Euler(0, 0, currentAngle);
     }
     public void ToggleDeath(bool dead){
-        col.enabled = !dead;
-        ToggleActing(dead);
-        rb.simulated = !dead;
         isDead = dead;
+        if(col){
+            col.enabled = !dead;
+        }
+        if(rb){
+            rb.simulated = !dead;
+        }
+        ToggleActing(!dead);
+        
         if(dead){
             rb.linearVelocity = Vector2.zero;
             gameObject.layer = deadLayer;
@@ -255,11 +272,11 @@ public class BattlerAgent : Agent
         }
     }
     public void ToggleActing(bool canAct){
-        if(canAct){
+        if(canAct && !isDead){
             canAttack = true;
             canMove = true;
         }
-        else if(isDead){
+        else{
             canAttack = false;
             canMove = false;
         }

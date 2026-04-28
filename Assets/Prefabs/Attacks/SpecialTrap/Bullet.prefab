@@ -108,6 +108,7 @@ MonoBehaviour:
   pierceAmount: 0
   source: {fileID: 0}
   abilityEffect: {fileID: 11400000, guid: 3d594aed05e9b3947975b8600f6358ce, type: 2}
+  hitTarget: 0
 --- !u!61 &5643806111165713646
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -152,7 +153,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 12, y: 4}
   m_EdgeRadius: 0
 --- !u!50 &2942224525074314950
 Rigidbody2D:

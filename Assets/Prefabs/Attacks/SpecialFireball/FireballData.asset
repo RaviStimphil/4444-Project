@@ -16,15 +16,10 @@ MonoBehaviour:
   animationClip: {fileID: 0}
   effects:
   - rid: 3774181962408525898
-  - rid: 3774181962408525899
   references:
     version: 2
     RefIds:
     - rid: 3774181962408525898
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        amount: 50
-    - rid: 3774181962408525899
-      type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
-      data:
-        force: 10
+        amount: 45

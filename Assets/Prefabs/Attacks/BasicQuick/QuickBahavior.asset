@@ -16,10 +16,10 @@ MonoBehaviour:
   source: {fileID: 0}
   isDash: 0
   dashForce: 0
-  startDistance: 0.75
+  startDistance: 0.5
   connectedToAgent: 0
-  attackDuration: 1.6
-  attackRange: 12
+  attackDuration: 0.8
+  attackRange: 16
   pierceAmount: 1
   maxRewardRange: 0
   minRewardRange: 0

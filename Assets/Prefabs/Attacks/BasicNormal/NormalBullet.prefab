@@ -28,13 +28,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5146142634013333203}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.36762965, w: 0.9299723}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.5, y: -4.529, z: 0}
   m_LocalScale: {x: 0.20824924, y: 0.21828647, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 43.139}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2439142452580840645
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   pierceAmount: 0
   source: {fileID: 0}
   abilityEffect: {fileID: 11400000, guid: 356661d9b6b76d543a3bf0b095d9b2c7, type: 2}
+  hitTarget: 0
 --- !u!61 &671280541359411755
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,13 +147,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.26, y: 3.23}
+    oldSize: {x: 4, y: 4.25}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 4}
   m_EdgeRadius: 0
 --- !u!50 &1737913810358241578
 Rigidbody2D:

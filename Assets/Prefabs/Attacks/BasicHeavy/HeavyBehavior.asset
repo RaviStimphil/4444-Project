@@ -15,11 +15,11 @@ MonoBehaviour:
   ammoInfo: {fileID: 6023891866231888746, guid: 34b07f3cde0525647af100dba788f68b, type: 3}
   source: {fileID: 0}
   isDash: 1
-  dashForce: 0.5
-  startDistance: 0.75
+  dashForce: 0.75
+  startDistance: 0.25
   connectedToAgent: 0
-  attackDuration: 1.2
-  attackRange: 2
+  attackDuration: 0.3
+  attackRange: 2.5
   pierceAmount: 999
   maxRewardRange: 0
   minRewardRange: 0

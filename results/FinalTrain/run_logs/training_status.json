@@ -1,4 +1,53 @@
 {
+    "FightBattle": {
+        "checkpoints": [
+            {
+                "steps": 18504000,
+                "file_path": "results\\FinalTrain\\FightBattle\\FightBattle-18504000.onnx",
+                "reward": 11.342499667778611,
+                "creation_time": 1777251104.3005126,
+                "auxillary_file_paths": [
+                    "results\\FinalTrain\\FightBattle\\FightBattle-18504000.pt"
+                ]
+            },
+            {
+                "steps": 18536704,
+                "file_path": "results\\FinalTrain\\FightBattle\\FightBattle-18536704.onnx",
+                "reward": null,
+                "creation_time": 1777251868.4091792,
+                "auxillary_file_paths": [
+                    "results\\FinalTrain\\FightBattle\\FightBattle-18536704.pt"
+                ]
+            },
+            {
+                "steps": 18566336,
+                "file_path": "results\\FinalTrain\\FightBattle\\FightBattle-18566336.onnx",
+                "reward": null,
+                "creation_time": 1777252230.6200078,
+                "auxillary_file_paths": [
+                    "results\\FinalTrain\\FightBattle\\FightBattle-18566336.pt"
+                ]
+            },
+            {
+                "steps": 18581920,
+                "file_path": "results\\FinalTrain\\FightBattle\\FightBattle-18581920.onnx",
+                "reward": null,
+                "creation_time": 1777252816.4916427,
+                "auxillary_file_paths": [
+                    "results\\FinalTrain\\FightBattle\\FightBattle-18581920.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 18581920,
+            "file_path": "results\\FinalTrain\\FightBattle.onnx",
+            "reward": null,
+            "creation_time": 1777252816.4916427,
+            "auxillary_file_paths": [
+                "results\\FinalTrain\\FightBattle\\FightBattle-18581920.pt"
+            ]
+        }
+    },
     "metadata": {
         "stats_format_version": "0.3.0",
         "mlagents_version": "1.1.0",

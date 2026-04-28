@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-public class AccuracyPackage : MonoBehaviour
+public class AccuracyPackage
 {
     public string label;
     public List<int> accuracyChecks;
