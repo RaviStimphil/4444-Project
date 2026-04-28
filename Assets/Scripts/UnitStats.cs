@@ -38,6 +38,9 @@ public class UnitStats : MonoBehaviour
         damageTaken.damagePercent = (float) (currentHP - storeHP)/maxHP;
         SharedEvents.AnnounceDamage(damageTaken);
         CheckDeath();
+        if(isDead){
+            pack.source.GetComponent<BattlerAgent>().AddReward(50f);
+        }
     }
     public void CheckDeath(){
         if(currentHP <= 0){

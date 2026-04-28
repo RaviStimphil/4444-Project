@@ -123,7 +123,7 @@ public class BattlerAgent : Agent
         sensor.AddObservation(basicAttack.GetCooldownNormalized());
         sensor.AddObservation(specialAttack.GetCooldownNormalized());
         sensor.AddObservation(this.gameObject.GetComponent<UnitStats>().currentHP/this.gameObject.GetComponent<UnitStats>().maxHP);
-        sensor.AddObservation((currentAngle % 360 + 360) % 360);
+        sensor.AddObservation(transform.rotation);
         if(isDead){
             sensor.AddObservation(-1);
         }else{
@@ -164,7 +164,7 @@ public class BattlerAgent : Agent
                         if(solidHit.collider.GetComponent<UnitStats>().align != this.gameObject.GetComponent<UnitStats>().align){
                             solidHitType = 1f; // enemy
                             if(straight){
-                                RewardAdd(0.2f);
+                                RewardAdd(0.04f);
                             }
                         }
                         else if(solidHit.collider.GetComponent<UnitStats>().align == this.gameObject.GetComponent<UnitStats>().align){
