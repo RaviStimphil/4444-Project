@@ -68,6 +68,8 @@ public class BattlerAgent : Agent
         transform.localPosition = respawnPoint + new Vector3(offsetX,offsetY,0);
         
     }
+
+    
     public void UpdateAbility()
     {
         // Pick random basic attack
@@ -123,7 +125,7 @@ public class BattlerAgent : Agent
         sensor.AddObservation(basicAttack.GetCooldownNormalized());
         sensor.AddObservation(specialAttack.GetCooldownNormalized());
         sensor.AddObservation(this.gameObject.GetComponent<UnitStats>().currentHP/this.gameObject.GetComponent<UnitStats>().maxHP);
-        sensor.AddObservation((currentAngle % 360 + 360) % 360);
+        sensor.AddObservation(transform.rotation);
         if(isDead){
             sensor.AddObservation(-1);
         }else{
@@ -177,6 +179,7 @@ public class BattlerAgent : Agent
                 else if (solidHit.collider.TryGetComponent<Wall>(out _))
                 {
                     solidHitType = 0.25f; // wall
+                    
                 }
             }
             if(projectileHit.collider != null) {

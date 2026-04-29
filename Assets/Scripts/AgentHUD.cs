@@ -10,6 +10,8 @@ public class AgentHUD : MonoBehaviour
     public Slider hpBar;
     public Image hpFill;
     public string label = "Agent 1";
+    public Image basicIcon;
+    public Image specialIcon;
 
     void Update()
     {
@@ -19,5 +21,12 @@ public class AgentHUD : MonoBehaviour
 
         float percent = stats.currentHP / stats.maxHP;
         hpFill.color = Color.Lerp(Color.red, Color.green, percent);
+
+        SpriteRenderer sr = agent.basicAttack.ammoInfo.GetComponent<SpriteRenderer>();
+        basicIcon.sprite = sr.sprite; 
+
+        SpriteRenderer sr2 = agent.specialAttack.ammoInfo.GetComponent<SpriteRenderer>();
+        specialIcon.sprite = sr2.sprite; 
+
     }
 }

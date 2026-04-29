@@ -44,6 +44,7 @@ public class UnitStats : MonoBehaviour
             isDead = true;
             agent.ToggleDeath(isDead);
             agent.AddReward(-50f);
+            SharedEvents.AnnounceDeath(this.gameObject);
         }
     }
 

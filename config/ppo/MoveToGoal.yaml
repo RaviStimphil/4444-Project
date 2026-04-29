@@ -1,60 +1,40 @@
 behaviors:
-  MoveToGoal:
-    trainer_type: ppo
-    max_steps: 20000000
-    time_horizon: 64
-    summary_freq: 10000
-
-    hyperparameters:
-      batch_size: 64
-      buffer_size: 2048
-      learning_rate: 3e-4
-
-    network_settings:
-      hidden_units: 128
-      num_layers: 2
-
-    reward_signals:
-      extrinsic:
-        gamma: 0.99
-        strength: 1.0
-  FightBattle:
-    trainer_type: ppo
-    max_steps: 20000000
-    time_horizon: 64
-    summary_freq: 10000
-    checkpoint_interval: 50000000
-
-    hyperparameters:
-      batch_size: 64
-      buffer_size: 2048
-      learning_rate: 3e-4
-
-    network_settings:
-      hidden_units: 128
-      num_layers: 2
-
-    reward_signals:
-      extrinsic:
-        gamma: 0.99
-        strength: 1.0
   Combat:
     trainer_type: ppo
     max_steps: 20000000
-    time_horizon: 64
+    time_horizon: 128
     summary_freq: 10000
-    checkpoint_interval: 50000000
+
+    checkpoint_interval: 50000
+    keep_checkpoints: 10
 
     hyperparameters:
-      batch_size: 64
-      buffer_size: 2048
-      learning_rate: 3e-4
+      batch_size: 1024
+      buffer_size: 10240
+      learning_rate: 1e-4
+      beta: 0.003
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+      learning_rate_schedule: linear
+      beta_schedule: linear
+      epsilon_schedule: linear
 
     network_settings:
-      hidden_units: 128
+      normalize: true
+      hidden_units: 256
       num_layers: 2
+      vis_encode_type: simple
 
     reward_signals:
       extrinsic:
         gamma: 0.99
         strength: 1.0
+
+    self_play:
+      save_steps: 20000
+      swap_steps: 20000
+      team_change: 0
+      window: 10
+
+    keep_checkpoints: 10

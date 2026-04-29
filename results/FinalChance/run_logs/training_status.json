@@ -1,0 +1,29 @@
+{
+    "Combat": {
+        "checkpoints": [
+            {
+                "steps": 281216,
+                "file_path": "results\\FinalChance\\Combat\\Combat-281216.onnx",
+                "reward": null,
+                "creation_time": 1777400602.1520333,
+                "auxillary_file_paths": [
+                    "results\\FinalChance\\Combat\\Combat-281216.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 281216,
+            "file_path": "results\\FinalChance\\Combat.onnx",
+            "reward": null,
+            "creation_time": 1777400602.1520333,
+            "auxillary_file_paths": [
+                "results\\FinalChance\\Combat\\Combat-281216.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.8.0+cpu"
+    }
+}

@@ -1,0 +1,111 @@
+{
+    "Combat": {
+        "checkpoints": [
+            {
+                "steps": 3649920,
+                "file_path": "results\\test12\\Combat\\Combat-3649920.onnx",
+                "reward": null,
+                "creation_time": 1777426476.0988533,
+                "auxillary_file_paths": [
+                    "results\\test12\\Combat\\Combat-3649920.pt"
+                ]
+            },
+            {
+                "steps": 3699968,
+                "file_path": "results\\test12\\Combat\\Combat-3699968.onnx",
+                "reward": null,
+                "creation_time": 1777426607.4524598,
+                "auxillary_file_paths": [
+                    "results\\test12\\Combat\\Combat-3699968.pt"
+                ]
+            },
+            {
+                "steps": 3749888,
+                "file_path": "results\\test12\\Combat\\Combat-3749888.onnx",
+                "reward": null,
+                "creation_time": 1777426738.796273,
+                "auxillary_file_paths": [
+                    "results\\test12\\Combat\\Combat-3749888.pt"
+                ]
+            },
+            {
+                "steps": 3799936,
+                "file_path": "results\\test12\\Combat\\Combat-3799936.onnx",
+                "reward": null,
+                "creation_time": 1777426869.639262,
+                "auxillary_file_paths": [
+                    "results\\test12\\Combat\\Combat-3799936.pt"
+                ]
+            },
+            {
+                "steps": 3849984,
+                "file_path": "results\\test12\\Combat\\Combat-3849984.onnx",
+                "reward": null,
+                "creation_time": 1777426998.6787682,
+                "auxillary_file_paths": [
+                    "results\\test12\\Combat\\Combat-3849984.pt"
+                ]
+            },
+            {
+                "steps": 3899904,
+                "file_path": "results\\test12\\Combat\\Combat-3899904.onnx",
+                "reward": null,
+                "creation_time": 1777427129.9112182,
+                "auxillary_file_paths": [
+                    "results\\test12\\Combat\\Combat-3899904.pt"
+                ]
+            },
+            {
+                "steps": 3949952,
+                "file_path": "results\\test12\\Combat\\Combat-3949952.onnx",
+                "reward": null,
+                "creation_time": 1777427261.3708377,
+                "auxillary_file_paths": [
+                    "results\\test12\\Combat\\Combat-3949952.pt"
+                ]
+            },
+            {
+                "steps": 3999872,
+                "file_path": "results\\test12\\Combat\\Combat-3999872.onnx",
+                "reward": null,
+                "creation_time": 1777427392.0848932,
+                "auxillary_file_paths": [
+                    "results\\test12\\Combat\\Combat-3999872.pt"
+                ]
+            },
+            {
+                "steps": 4049920,
+                "file_path": "results\\test12\\Combat\\Combat-4049920.onnx",
+                "reward": null,
+                "creation_time": 1777427522.271391,
+                "auxillary_file_paths": [
+                    "results\\test12\\Combat\\Combat-4049920.pt"
+                ]
+            },
+            {
+                "steps": 4093696,
+                "file_path": "results\\test12\\Combat\\Combat-4093696.onnx",
+                "reward": null,
+                "creation_time": 1777427650.5759974,
+                "auxillary_file_paths": [
+                    "results\\test12\\Combat\\Combat-4093696.pt"
+                ]
+            }
+        ],
+        "elo": 1200.0,
+        "final_checkpoint": {
+            "steps": 4093696,
+            "file_path": "results\\test12\\Combat.onnx",
+            "reward": null,
+            "creation_time": 1777427650.5759974,
+            "auxillary_file_paths": [
+                "results\\test12\\Combat\\Combat-4093696.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.8.0+cpu"
+    }
+}
