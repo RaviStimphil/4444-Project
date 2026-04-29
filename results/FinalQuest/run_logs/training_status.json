@@ -1,0 +1,29 @@
+{
+    "Combat": {
+        "checkpoints": [
+            {
+                "steps": 2000512,
+                "file_path": "results\\FinalQuest\\Combat\\Combat-2000512.onnx",
+                "reward": null,
+                "creation_time": 1777404229.8366206,
+                "auxillary_file_paths": [
+                    "results\\FinalQuest\\Combat\\Combat-2000512.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2000512,
+            "file_path": "results\\FinalQuest\\Combat.onnx",
+            "reward": null,
+            "creation_time": 1777404229.8366206,
+            "auxillary_file_paths": [
+                "results\\FinalQuest\\Combat\\Combat-2000512.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.8.0+cpu"
+    }
+}

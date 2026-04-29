@@ -9,26 +9,12 @@ public class EventAgent : MonoBehaviour
     }
     void OnEnable(){
         SharedEvents.damageTaken += RewardForDamage;
-        SharedEvents.unitDeath += RewardForDeath;
     }
     void OnDisable(){
         SharedEvents.damageTaken -= RewardForDamage;
-        SharedEvents.unitDeath -= RewardForDeath;
     }
 
-    public void RewardForDeath(GameObject unit){
-        Alignment deadAlign = unit.gameObject.GetComponent<UnitStats>().align;
-        Alignment agentAlign = this.gameObject.GetComponent<UnitStats>().align;
-        if(unit == this.gameObject){
-            agent.PendingRewardAdd(-2f);
-        }
-        else if(deadAlign == agentAlign){
-            agent.PendingRewardAdd(-1f);
-        }
-        else{
-            agent.PendingRewardAdd(1f);
-        }
-    }
+    
     public void RewardForDamage(DamagePackage pack){
         //In case I want to make deployables... I really shouldn't.
         float rewardMultiplier = 1f; 

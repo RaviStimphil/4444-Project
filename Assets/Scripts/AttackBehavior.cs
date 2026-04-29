@@ -5,6 +5,8 @@ using System.Collections;
 public class AttackBehavior : ScriptableObject
 {
     public GameObject ammoInfo;
+    [SerializeField] AbilityData abilityEffect;
+    
     public GameObject source;
 
     public bool isDash;
@@ -18,7 +20,7 @@ public class AttackBehavior : ScriptableObject
     public float maxRewardRange;
     public float minRewardRange;
 
-    [SerializeField] AbilityData abilityEffect;
+    
 
     public float castTime;
     public float endTime;
