@@ -84,10 +84,27 @@ conda activate mlagents
 
 #### 3. Install Dependencies
 
-Run the following inside the active `mlagents` environment (same on both platforms):
+**Windows** — run in the active `mlagents` Anaconda Prompt:
+
+```bat
+pip install --upgrade pip setuptools
+pip install mlagents==1.1.0
+pip install torch==2.8.0
+```
+
+**Mac (Apple Silicon M1/M2/M3)** — `grpcio` has no prebuilt wheel for ARM64 on PyPI, so install it via conda-forge first, then install mlagents without letting pip replace it:
 
 ```bash
-pip install mlagents
+pip install --upgrade pip setuptools
+conda install -c conda-forge grpcio=1.48.2 -y
+pip install mlagents==1.1.0
+```
+
+**Mac (Intel)** — same as Windows:
+
+```bash
+pip install --upgrade pip setuptools
+pip install mlagents==1.1.0
 pip install torch==2.8.0
 ```
 
@@ -119,10 +136,12 @@ Once the trainer prints **"Start training by pressing the Play button in the Uni
 
 ## Troubleshooting
 
-| Issue                                        | Fix                                                                                 |
-| -------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Unity can't find the correct editor version  | Open Unity Hub → Installs → add version **6000.0.69f1**                             |
-| Project opens to a blank screen              | Manually open `Assets/Scenes/SampleScene` from the Project panel                    |
-| `mlagents-learn` not found                   | Make sure the conda environment is active: `conda activate mlagents`                |
-| Mac: `conda` command not found after install | Restart Terminal, or run `source ~/.zshrc` (zsh) / `source ~/.bash_profile` (bash)  |
-| Mac: PyTorch install errors on Apple Silicon | Try `pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu`     |
+| Issue                                                                                | Fix                                                                                                                 |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| Unity can't find the correct editor version                                          | Open Unity Hub → Installs → add version**6000.0.69f1**                                                              |
+| Project opens to a blank screen                                                      | Manually open `Assets/Scenes/SampleScene` from the Project panel                                                    |
+| `mlagents-learn` not found                                                           | Make sure the conda environment is active:`conda activate mlagents`                                                 |
+| Mac:`conda` command not found after install                                          | Restart Terminal, or run `source ~/.zshrc` (zsh) / `source ~/.bash_profile` (bash)                                  |
+| `ModuleNotFoundError: No module named 'pkg_resources'` during `pip install mlagents` | Run `pip install --upgrade pip setuptools` first                                                                    |
+| Mac Apple Silicon:`grpcio` fails to build from source                                | Install via conda-forge instead:`conda install -c conda-forge grpcio=1.48.2 -y`, then `pip install mlagents==1.1.0` |
+| Mac: PyTorch install errors on Apple Silicon                                         | Try `pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu`                                     |
